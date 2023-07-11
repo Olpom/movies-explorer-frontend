@@ -1,0 +1,43 @@
+.header {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    height: 74px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_main {
+    background-color: #073042;
+}
+
+.header_movie {
+    background-color: #fff;
+}
+
+.header__logo {
+    display: block;
+    width: 38px;
+    height: 38px;
+    margin: 0;
+    padding: 0 60px 0;
+    cursor: pointer;
+    transition: filter .6s linear .1s;
+}
+
+.header__logo:hover {
+    filter: brightness(150%);
+}
+
+@media screen and (max-width: 768px) {
+    .header__logo {
+        padding-left: 30px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header__logo {
+        padding-left: 14px;
+    }
+}

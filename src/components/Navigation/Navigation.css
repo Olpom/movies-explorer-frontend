@@ -1,0 +1,297 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+    width: 60%;
+}
+
+.navigation_loggedout {
+    width: fit-content;
+}
+
+.navigation__menu {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.navigation__title {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    color: #000;
+}
+
+.navigation__title:last-of-type {
+    padding: 0 0 0 16px;
+    transition: opacity 0.4s linear 0.1s;
+}
+
+.navigation__title:hover {
+    opacity: 0.7;
+}
+
+.navigation__title_active {
+    font-weight: 500;
+}
+
+.navigation__profile,
+.navigation__profile-loggedout {
+    padding: 0 70px 0 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navigation__button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: filter .6s linear .1s;
+}
+
+.navigation__button:hover {
+    filter: brightness(150%);
+}
+
+.navigation__button_loggedout {
+    width: 76px;
+    padding: 8px 0;
+    background-color: #2be080;
+    color: #000;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.navigation__button_loggedin {
+    width: 26px;
+    height: 30px;
+    background: #f9f9f9 url("../../images/navbutton-loggedin.png") no-repeat center / 11.5px 14px;
+    border-radius: 4px;
+}
+
+.navigation__link {
+    margin: 0;
+    text-decoration: none;
+    line-height: 16px;
+    font-weight: 500;
+    transition: opacity 0.4s linear 0.1s;
+}
+
+.navigation__link:hover {
+    opacity: 0.7;
+}
+
+.navigation__link_loggedin {
+    font-size: 14px;
+    color: #000;
+    padding: 0 17px 0 0;
+}
+
+.navigation__link_loggedout {
+    font-size: 12px;
+    color: #fff;
+    padding: 0 30px 0 0;
+}
+
+.navigation__folded {
+    padding: 0;
+    margin: 0;
+    width: 44px;
+    height: 44px;
+    background: #fff url("../../images/menu-folded.png") no-repeat center;
+    border: none;
+    display: none;
+    cursor: pointer;
+    transition: opacity 0.4s linear 0.1s;
+}
+
+.navigation__folded:hover {
+    opacity: 0.7;
+}
+
+.navigation__sidebar {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .navigation {
+        width: fit-content;
+    }
+
+    .navigation__profile {
+        padding: 0 30px 0 0;
+    }
+
+    .navigation__profile-loggedout {
+        padding: 0 30px 0 0;
+    }
+
+    .navigation__folded {
+        display: block;
+        margin: 0 30px 0 0;
+    }
+
+    .navigation__menu {
+        display: none;
+    }
+
+    .navigation__loggedin {
+        width: fit-content;
+        padding: 0 30px 0 0;
+    }
+
+    /* Боковое меню */
+    .navigation__sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: rgba(0, 0, 0, 50%);
+        transition: all 0.5s ease-in-out;
+        opacity: 0;
+        z-index: 2;
+        visibility: hidden;
+    }
+
+    .navigation__sidebar_opened {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .navigation__sidebar-content {
+        background: #fff;
+        color: #000;
+        padding: 0 36px 0;
+        box-sizing: border-box;
+        margin: 0;
+        display: flex;
+        z-index: 2;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+        align-items: center;
+        height: 100%;
+        width: 68%;
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+
+    .navigation__sidebar-menu {
+        padding: 159px 0 0;
+        margin: 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navigation__sidebar-title {
+        margin: 0;
+        padding: 28px 0 0;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .navigation__sidebar-title:first-of-type {
+        padding: 0;
+    }
+
+    .navigation__sidebar-title_active {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+    }
+
+    .navigation__sidebar-link {
+        padding: 0;
+        margin: 0;
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        transition: opacity 0.4s linear 0.1s;
+    }
+
+    .navigation__sidebar-link:hover {
+        opacity: 0.7;
+    }
+
+    .navigation__sidebar-profile {
+        display: flex;
+        padding: 0 0 92px 0;
+        margin: 0;
+        align-items: center;
+    }
+
+    .navigation__close-button {
+        width: 29px;
+        height: 29px;
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        background: #fff url("../../images/close-button.png") no-repeat center cover;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.4s linear 0.1s;
+    }
+
+    .navigation__close-button:hover {
+        opacity: 0.7;
+    }
+}
+
+@media screen and (max-width: 420px) {
+
+    .navigation__profile,
+    .navigation__profile-loggedout {
+        padding: 0 14px 0 0;
+    }
+
+    .navigation__button_loggedout {
+        width: 54px;
+        padding: 5px 0;
+        font-size: 10px;
+    }
+
+    .navigation__link_loggedout {
+        font-size: 10px;
+        padding: 0 14px 0 0;
+    }
+
+    .navigation__loggedin {
+        padding: 0 14px 0 0;
+    }
+
+    .navigation__folded {
+        margin: 0 14px 0 0;
+    }
+
+    .navigation__sidebar-content {
+        width: 100%;
+    }
+
+    .navigation__close-button {
+        top: 20px;
+        right: 20px;
+    }
+
+    .navigation__sidebar-menu {
+        padding: 144px 0 0 0;
+    }
+}
