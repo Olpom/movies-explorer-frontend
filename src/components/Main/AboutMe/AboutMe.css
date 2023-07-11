@@ -19,7 +19,7 @@
 
 .aboutme__title {
     margin: 0;
-    padding: 110px 0 23px 0;
+    padding: 110px 0 23px;
     font-size: 22px;
     line-height: 27px;
     font-weight: 400;
@@ -27,7 +27,7 @@
 }
 
 .aboutme__profile {
-    padding: 66px 0 0 0;
+    padding: 66px 0 0;
     display: flex;
     justify-content: space-between;
 }
@@ -51,14 +51,14 @@
 
 .aboutme__job {
     margin: 0;
-    padding: 18px 0 0 0;
+    padding: 18px 0 0;
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;
 }
 
 .aboutme__text {
-    padding: 26px 0 0 0;
+    padding: 26px 0 0;
     margin: 0;
     font-size: 14px;
     line-height: 22px;
@@ -79,7 +79,7 @@
 
 .aboutme__link {
     margin: 0;
-    padding: 99px 0 0 0;
+    padding: 56px 0 0;
     font-size: 14px;
     line-height: 17px;
     font-weight: 500;
@@ -99,7 +99,7 @@
     }
 
     .aboutme__title {
-        padding: 90px 0 23px 0;
+        padding: 90px 0 23px;
     }
 
     .aboutme__description {
@@ -112,13 +112,13 @@
     }
 
     .aboutme__job {
-        padding: 16px 0 0 0;
+        padding: 16px 0 0;
         font-size: 12px;
         line-height: 18px;
     }
 
     .aboutme__text {
-        padding: 20px 0 0 0;
+        padding: 20px 0 0;
         font-size: 12px;
         line-height: 18px;
     }
@@ -129,7 +129,7 @@
     }
 
     .aboutme__link {
-        padding: 87px 0 0 0;
+        padding: 51px 0 0;
     }
 }
 
@@ -179,6 +179,6 @@
     }
 
     .aboutme__link {
-        padding: 40px 0 0;
+        padding: 29px 0 0;
     }
 }
