@@ -18,8 +18,8 @@ function Techs() {
                 <li className='techs__list-item'><p className='techs__list-text'>JS</p></li>
                 <li className='techs__list-item'><p className='techs__list-text'>React</p></li>
                 <li className='techs__list-item'><p className='techs__list-text'>Git</p></li>
-                <li className='techs__list-item'><p className='techs__list-text'>Exspress.js</p></li>
-                <li className='techs__list-item'><p className='techs__list-text'>mobgodb</p></li>
+                <li className='techs__list-item'><p className='techs__list-text'>Express.js</p></li>
+                <li className='techs__list-item'><p className='techs__list-text'>mongoDB</p></li>
             </ul>
         </section>
     )
