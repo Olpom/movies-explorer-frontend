@@ -139,7 +139,7 @@
     }
 
     .aboutme__title {
-        padding: 70px 0 0 0;
+        padding: 70px 0 0;
         margin-bottom: 28px;
         font-size: 18px;
         line-height: 22px;
@@ -147,7 +147,7 @@
 
     .aboutme__profile {
         flex-direction: column-reverse;
-        padding: 61px 0 0 0;
+        padding: 61px 0 0;
         align-items: center;
     }
 
@@ -161,13 +161,13 @@
     }
 
     .aboutme__job {
-        padding: 20px 0 0 0;
+        padding: 20px 0 0;
         font-size: 11px;
         line-height: 16px;
     }
 
     .aboutme__text {
-        padding: 20px 0 0 0;
+        padding: 20px 0 0;
         font-size: 11px;
         line-height: 16px;
     }
