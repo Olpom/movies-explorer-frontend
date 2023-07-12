@@ -5,6 +5,7 @@ import SignForm from '../SignForm/SignForm';
 function Register() {
     return (
         <SignForm
+            isRegister={true}
             title="Добро пожаловать!"
             buttonText="Зарегистрироваться"
             spanText="Уже зарегистрированы?"

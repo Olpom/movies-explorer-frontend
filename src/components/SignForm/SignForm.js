@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import './SignForm.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/header-logo.svg';
 import { validateInput, validateEmail, validatePassword } from '../../utils/Validation';
 
 function SignForm(props) {
-    const { title, buttonText, spanText, linkText, linkPath, onSubmit } = props;
+    const { isRegister, title, buttonText, spanText, linkText, linkPath, onSubmit } = props;
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ function SignForm(props) {
     const [nameError, setNameError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    const disabled = !name || nameError ||!email || emailError || !password || passwordError;
+    const disabled = !name || nameError || !email || emailError || !password || passwordError;
 
     function handleName(evt) {
         const { value } = evt.target;
@@ -53,19 +53,23 @@ function SignForm(props) {
             </div>
             <div className="form__container">
                 <fieldset className="form__inputs">
-                    <label className="form__label">
-                        <p className="form__text">Имя</p>
-                        <input
-                            type="text"
-                            className="form__input"
-                            id="name"
-                            name="name"
-                            required=""
-                            placeholder="Имя"
-                            value={name}
-                            onChange={handleName} />
-                    </label>
-                        <span className={`input__error name-error ${nameError && 'input__error_active'}`}>{nameError}</span>
+                    {isRegister &&
+                        <Fragment>
+                            <label className="form__label">
+                                <p className="form__text">Имя</p>
+                                <input
+                                    type="text"
+                                    className="form__input"
+                                    id="name"
+                                    name="name"
+                                    required=""
+                                    placeholder="Имя"
+                                    value={name}
+                                    onChange={handleName} />
+                            </label>
+                            <span className={`input__error name-error ${nameError && 'input__error_active'}`}>{nameError}</span>
+                        </Fragment>
+                    }
                     <label className="form__label">
                         <p className="form__text">E-mail</p>
                         <input
@@ -78,7 +82,7 @@ function SignForm(props) {
                             value={email}
                             onChange={handleEmail} />
                     </label>
-                        <span className={`input__error email-error ${emailError && 'input__error_active'}`}>{emailError}</span>
+                    <span className={`input__error email-error ${emailError && 'input__error_active'}`}>{emailError}</span>
                     <label className="form__label">
                         <p className="form__text">Пароль</p>
                         <input
@@ -93,10 +97,10 @@ function SignForm(props) {
                             value={password}
                             onChange={handlePassword} />
                     </label>
-                        <span className={`input__error password-error ${passwordError && 'input__error_active'}`}>{passwordError}</span>
+                    <span className={`input__error password-error ${passwordError && 'input__error_active'}`}>{passwordError}</span>
                 </fieldset>
 
-                <div className="form__submit">
+                <div className={`form__submit ${isRegister ? 'form__submit_register' : 'form__submit_login'}`}>
                     <button
                         className={`form__submit-button ${disabled ? 'popup__submit-button_disabled' : ''}`}
                         type="submit"

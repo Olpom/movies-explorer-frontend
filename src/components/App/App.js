@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Register from '../Register/Register';
-/*
 import Login from '../Login/Login';
+/*
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -21,6 +21,7 @@ function App() {
     <div className='app'>
       <Routes>
         <Route path='/signup' element={<Register />} />
+        <Route path='/signin' element={<Login />} />
       </Routes>
     </div>
   )
@@ -28,7 +29,7 @@ function App() {
 
 export default App;
 
-/*         <Route path='/signin' element={<Login />} />
+/* 
         <Route path='/' element={<Main loggedIn={loggedIn} />} />
         <Route path='/movies' element={<Movies loggedIn={loggedIn} />} />
         <Route path='/saved-movies' element={<SavedMovies loggedIn={loggedIn} />} />

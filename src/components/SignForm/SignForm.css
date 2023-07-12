@@ -113,15 +113,25 @@
 }
 
 .form__submit-button {
-    padding: 14px 125px;
-    margin: 69px 0 0;
+    padding: 15px 0;
+    margin: 0 auto;
+    min-width: 396px;
     color: #fff;
     font-weight: 500;
     font-size: 14px;
+    line-height: 14px;
     background-color: #3456F3;
     border-radius: 3px;
     border: none;
     cursor: pointer;
+}
+
+.form__submit_register .form__submit-button {
+    margin-top: 69px;
+}
+
+.form__submit_login .form__submit-button {
+    margin-top: 158px;
 }
 
 .form__submit-button:hover {
@@ -153,7 +163,7 @@
 
 @media screen and (max-width: 768px) {
     .form {
-        margin: 232px auto 0;
+        margin: 232px auto;
     }
 }
 
@@ -178,9 +188,17 @@
     }
 
     .form__submit-button {
-        margin-top: 157px;
-        padding: 15px 67px;
+        margin-top: 0;
+        min-width: 260px;
         font-size: 12px;
+    }
+
+    .form__submit_register .form__submit-button {
+        margin-top: 157px;
+    }
+    
+    .form__submit_login .form__submit-button {
+        margin-top: 245px;
     }
 
     .form__subtitle, .form__link {
