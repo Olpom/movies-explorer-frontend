@@ -3,9 +3,9 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
-/*
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+/*
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
@@ -22,6 +22,8 @@ function App() {
       <Routes>
         <Route path='/signup' element={<Register />} />
         <Route path='/signin' element={<Login />} />
+        <Route path='/' element={<Main loggedIn={loggedIn} />} />
+        <Route path='/movies' element={<Movies loggedIn={loggedIn} />} />
       </Routes>
     </div>
   )
@@ -30,8 +32,6 @@ function App() {
 export default App;
 
 /* 
-        <Route path='/' element={<Main loggedIn={loggedIn} />} />
-        <Route path='/movies' element={<Movies loggedIn={loggedIn} />} />
         <Route path='/saved-movies' element={<SavedMovies loggedIn={loggedIn} />} />
         <Route path='/profile' element={<Profile loggedIn={loggedIn} />} />
         <Route path='/*' element={<Page404 />} />

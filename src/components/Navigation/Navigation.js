@@ -16,7 +16,7 @@ const LoggedIn = () => {
                 <li><Link to='/saved-movies' className='navigation__title'>Сохранённые фильмы</Link></li>
             </ul>
 
-            <div className='navigation__profile'>
+            <div className='navigation__profile-decoration'>
                 <Link to='/profile' className='navigation__link navigation__link_loggedin'>Аккаунт</Link>
                 <Link to='/profile' className='navigation__button navigation__button_loggedin'></Link>
             </div>

@@ -1,0 +1,122 @@
+.searchform {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.searchform__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px 70px 0;
+}
+
+.searchform__form {
+    position: relative;
+    margin: 0;
+    display: flex;
+    flex-grow: 1;
+    margin-right: 41px;
+}
+
+.searchform__input {
+    width: 100%;
+    padding: 15px 22px;
+    margin: 0;
+    border-radius: 40px;
+    border: 1px solid #E8E8E8;
+    font-size: 14px;
+    color: #A0A0A0;
+}
+
+.searchform__input:focus {
+    outline: 1px solid #2BE080;
+}
+
+.searchform__button {
+    display: block;
+    width: 43px;
+    height: 35px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    position: absolute;
+    top: 7px;
+    right: 4px;
+    background: no-repeat #fff url("../../../images/search-sign.svg");
+    border-radius: 40%;
+    cursor: pointer;
+}
+
+.searchform__checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.searchform__text {
+    margin: 0;
+    padding: 0 14px 0 0;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.searchform__border {
+    width: calc(100% - 2 * 70px);
+    height: 1px;
+    margin: 83px auto 0;
+    padding: 0;
+    background-color: #E8E8E8;
+}
+
+
+@media screen and (max-width: 768px) {
+    .searchform__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 54px 30px 0;
+    }
+
+    .searchform__form {
+        padding: 0;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .searchform__input {
+        margin: 0 0 38px;
+        padding: 15px 18px;
+    }
+
+    .searchform__border {
+        width: calc(100% - 2 * 30px);
+        margin: 55px auto 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .searchform__container {
+        padding: 54px 10px 0;
+    }
+
+    .searchform__form {
+        width: 100%;
+    }
+
+    .searchform__input {
+        margin: 0 0 43px;
+        padding: 15px;
+        font-size: 11px;
+        line-height: 18px;
+    }
+
+    .searchform__border {
+        margin-top: 43px;
+    }
+
+    .searchform__text {
+        font-size: 11px;
+    }
+}

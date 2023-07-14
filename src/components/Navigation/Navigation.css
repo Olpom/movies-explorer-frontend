@@ -1,6 +1,6 @@
 .navigation {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     height: 100%;
     align-items: center;
     width: 60%;
@@ -20,7 +20,7 @@
 .navigation__title {
     margin: 0;
     padding: 0;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 18px;
     font-weight: 400;
     text-decoration: none;
@@ -29,7 +29,7 @@
 }
 
 .navigation__title:last-of-type {
-    padding: 0 0 0 16px;
+    margin-right: 22px;
     transition: opacity 0.4s linear 0.1s;
 }
 
@@ -47,6 +47,15 @@
     margin: 0;
     display: flex;
     align-items: center;
+}
+
+.navigation__profile-decoration {
+    margin: 0 70px 0 27px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    border-radius: 40px;
+    box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
 }
 
 .navigation__button {
@@ -75,10 +84,13 @@
 }
 
 .navigation__button_loggedin {
+    display: block;
     width: 26px;
-    height: 30px;
-    background: #f9f9f9 url("../../images/navbutton-loggedin.png") no-repeat center / 11.5px 14px;
-    border-radius: 4px;
+    height: 26px;
+    background: #F5F5F5 url("../../images/profile-icon.svg") no-repeat center / 12px 12px;
+    border-radius: 50px;
+    margin-right: 2px;
+    padding: 1px;
 }
 
 .navigation__link {
@@ -95,9 +107,9 @@
 }
 
 .navigation__link_loggedin {
-    font-size: 14px;
+    font-size: 13px;
     color: #000;
-    padding: 0 17px 0 0;
+    padding: 8px 7px 8px 11px;
 }
 
 .navigation__link_loggedout {
@@ -111,7 +123,7 @@
     margin: 0;
     width: 44px;
     height: 44px;
-    background: #fff url("../../images/menu-folded.png") no-repeat center;
+    background: #fff url("../../images/menu-folded.svg") no-repeat center;
     border: none;
     display: none;
     cursor: pointer;
@@ -132,7 +144,7 @@
     }
 
     .navigation__profile {
-        padding: 0 30px 0 0;
+        padding: 0 0 90px;
     }
 
     .navigation__profile-loggedout {
@@ -144,7 +156,8 @@
         margin: 0 30px 0 0;
     }
 
-    .navigation__menu {
+    .navigation__menu,
+    .navigation__profile-decoration {
         display: none;
     }
 
@@ -212,13 +225,17 @@
         line-height: 22px;
     }
 
+    .navigation__sidebar-title:last-of-type {
+        padding-top: 22px;
+    }
+
     .navigation__sidebar-title:first-of-type {
         padding: 0;
     }
 
     .navigation__sidebar-title_active {
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
+        border-bottom: 2px solid currentColor;
+        padding-bottom: 4px;
     }
 
     .navigation__sidebar-link {
@@ -242,12 +259,13 @@
     }
 
     .navigation__close-button {
+        display: block;
         width: 29px;
         height: 29px;
         position: absolute;
-        top: 22px;
-        right: 22px;
-        background: #fff url("../../images/close-button.png") no-repeat center cover;
+        top: 22.5px;
+        right: 22.5px;
+        background: url("../../images/close-button.svg") no-repeat center;
         border: none;
         cursor: pointer;
         transition: opacity 0.4s linear 0.1s;
@@ -262,7 +280,7 @@
 
     .navigation__profile,
     .navigation__profile-loggedout {
-        padding: 0 14px 0 0;
+        padding: 0 0 46px;
     }
 
     .navigation__button_loggedout {
@@ -281,16 +299,28 @@
     }
 
     .navigation__folded {
+        display: block;
+        width: 40px;
+        height: 43px;
         margin: 0 14px 0 0;
+        background: url("../../images/menu-folded-small.svg");
     }
 
     .navigation__sidebar-content {
         width: 100%;
     }
 
+    .navigation__sidebar-title {
+        padding: 24px 0 4px;
+    }
+
+    .navigation__sidebar-title:last-of-type {
+        padding-top: 18px;
+    }
+
     .navigation__close-button {
-        top: 20px;
-        right: 20px;
+        top: 13.5px;
+        right: 13.5px;
     }
 
     .navigation__sidebar-menu {
