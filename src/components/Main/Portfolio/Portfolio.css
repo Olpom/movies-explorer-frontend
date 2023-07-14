@@ -45,11 +45,11 @@
     color: #000;
     letter-spacing: -0.04em;
     cursor: pointer;
-    transition: opacity 0.4s linear 0.1s;
+    transition: opacity 0.4s ease-in-out;
 }
 
 .portfolio__subtitle:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .portfolio__arrow {
@@ -59,11 +59,11 @@
     font-size: 30px;
     font-weight: 400;
     cursor: pointer;
-    transition: opacity 0.4s linear 0.1s;
+    transition: opacity 0.4s ease-in-out;
 }
 
 .portfolio__arrow:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

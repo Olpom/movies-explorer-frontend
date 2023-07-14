@@ -25,6 +25,8 @@
     bottom: 0;
     background-color: #ebebeb;
     border-radius: 16px;
+    cursor: pointer;
+    transition: filter 0.4s ease-in-out;
 }
 
 .switch__button:before {
@@ -37,11 +39,15 @@
     border-radius: 50%;
 }
 
-input:checked + .switch__button {
+input:checked+.switch__button {
     background-color: #2BE080;
 }
 
-input:checked + .switch__button:before {
+input:checked+.switch__button:before {
     transform: translateX(16px);
     background-color: #FFF;
+}
+
+.switch__button:hover {
+    filter: brightness(0.95);
 }

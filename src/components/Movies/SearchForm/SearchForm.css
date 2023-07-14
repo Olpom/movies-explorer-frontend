@@ -114,6 +114,7 @@
 
     .searchform__border {
         margin-top: 43px;
+        width: calc(100% - 2 * 10px);
     }
 
     .searchform__text {

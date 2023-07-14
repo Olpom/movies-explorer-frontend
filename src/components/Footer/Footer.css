@@ -53,7 +53,7 @@
     font-weight: 400;
     color: #000;
     cursor: pointer;
-    transition: opacity 0.4s linear 0.1s;
+    transition: opacity 0.4s ease-in-out;
 }
 
 .footer__link:last-of-type {
@@ -61,7 +61,7 @@
 }
 
 .footer__link:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

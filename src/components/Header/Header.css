@@ -23,7 +23,7 @@
     margin: 0;
     padding: 0 60px 0;
     cursor: pointer;
-    transition: filter .6s linear .1s;
+    transition: filter .4s ease-in-out;
 }
 
 .header__logo:hover {

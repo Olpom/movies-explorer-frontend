@@ -26,8 +26,5 @@ function Movies({ loggedIn }) {
 export default Movies;
 
 /*
-<SearchForm />
-<MoviesCardList />
-
 <Footer />
 */
