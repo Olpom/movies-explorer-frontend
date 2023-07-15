@@ -34,7 +34,7 @@
 }
 
 .navigation__title:hover {
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .navigation__title_active {
@@ -109,7 +109,7 @@
 }
 
 .navigation__link:hover {
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 .navigation__link_loggedin {
@@ -137,7 +137,7 @@
 }
 
 .navigation__folded:hover {
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 .navigation__sidebar {
@@ -149,8 +149,23 @@
         width: fit-content;
     }
 
+    .navigation__button_loggedout {
+        margin: 0 30px;
+    }
+
+    .navigation__link_loggedout {
+        padding: 0;
+    }
+
     .navigation__profile {
-        padding: 0 0 90px;
+        padding: 0;
+        box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+        border-radius: 40px;
+        transition: filter 0.4s ease-in-out;
+    }
+
+    .navigation__profile:hover {
+        filter: brightness(0.95);
     }
 
     .navigation__profile-loggedout {
@@ -198,7 +213,7 @@
     .navigation__sidebar-content {
         background: #fff;
         color: #000;
-        padding: 0 36px 0;
+        padding: 0 36px 90px;
         box-sizing: border-box;
         margin: 0;
         display: flex;
@@ -254,7 +269,7 @@
     }
 
     .navigation__sidebar-link:hover {
-        opacity: 0.4;
+        opacity: 0.5;
     }
 
     .navigation__sidebar-profile {
@@ -278,7 +293,7 @@
     }
 
     .navigation__close-button:hover {
-        opacity: 0.4;
+        opacity: 0.5;
     }
 }
 
@@ -286,18 +301,19 @@
 
     .navigation__profile,
     .navigation__profile-loggedout {
-        padding: 0 0 46px;
+        padding: 0;
     }
 
     .navigation__button_loggedout {
         width: 54px;
         padding: 5px 0;
         font-size: 10px;
+        margin: 0 14px;
     }
 
     .navigation__link_loggedout {
         font-size: 10px;
-        padding: 0 14px 0 0;
+        padding: 0;
     }
 
     .navigation__loggedin {
@@ -314,6 +330,7 @@
 
     .navigation__sidebar-content {
         width: 100%;
+        padding-bottom: 46px;
     }
 
     .navigation__sidebar-title {

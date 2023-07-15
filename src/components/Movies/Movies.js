@@ -3,10 +3,7 @@ import './Movies.css';
 import Header from '../Header/Header';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-/*
 import Footer from '../Footer/Footer';
-*/
-
 
 function Movies({ loggedIn }) {
 
@@ -18,13 +15,9 @@ function Movies({ loggedIn }) {
             <div className="movies__add-button">
                 <button className="movies__button">Ещё</button>
             </div>
-
+            <Footer />
         </section>
     );
 }
 
 export default Movies;
-
-/*
-<Footer />
-*/
