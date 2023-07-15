@@ -102,7 +102,7 @@ function SignForm(props) {
 
                 <div className={`form__submit ${isRegister ? 'form__submit_register' : 'form__submit_login'}`}>
                     <button
-                        className={`form__submit-button ${disabled ? 'popup__submit-button_disabled' : ''}`}
+                        className={`form__submit-button ${disabled ? 'form__submit-button_disabled' : ''}`}
                         type="submit"
                         disabled={disabled}>
                         {buttonText}

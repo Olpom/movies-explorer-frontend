@@ -1,0 +1,156 @@
+.profile {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.profile__greeting {
+    margin: 0;
+    padding: 74px 0 0 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+}
+
+.profile__user {
+    display: flex;
+    max-width: 410px;
+    margin: 0 auto;
+    flex-direction: column;
+    padding: 123px 0 220px 0;
+    border: none;
+}
+
+.profile__inputs {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0 0 16px 0;
+    width: 100%;
+}
+
+.profile__inputs:last-of-type {
+    border-top: 1px solid #e8e8e8;
+    padding: 17px 0 0 0;
+}
+
+.profile__input {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    margin: 0;
+    padding: 0;
+}
+
+.profile__text {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-align: right;
+    width: 50%;
+    background: #fff;
+}
+
+.profile__text:focus {
+    outline: none;
+}
+
+.profile__error {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 14px;
+    color: #FF004C;
+    padding: 0 0 20px;
+    margin: 0;
+    opacity: 1;
+}
+
+/*.profile__error_active {
+    opacity: 1;
+}*/
+
+.profile__buttons {
+    display: flex;
+    margin: 0;
+    padding: 0 0 70px 0;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile__button {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.profile__button:hover {
+    opacity: 0.7;
+}
+
+.profile__save-button {
+    padding: 15px 0;
+    min-width: 396px;
+    color: #fff;
+    background-color: #3456F3;
+    border-radius: 3px;
+}
+
+.profile__save-button_disabled {
+    border-radius: 3px;
+    background-color: #F8F8F8;
+    color: #c2c2c2;
+    cursor: not-allowed;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.8;
+}
+
+.profile__exit-button {
+    padding: 16px 0 0 0;
+    margin: 0;
+    color: #ee3465;
+}
+
+.profile__button_hidden {
+    visibility: hidden;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__greeting {
+        padding: 236px 0 0 0;
+    }
+
+    .profile__user {
+        padding: 96px 0 258px 0;
+    }
+
+    .profile__buttons {
+        padding: 0 0 269px 0;
+    }
+}
+
+@media screen and (max-width: 448px) {
+    .profile__greeting {
+        padding: 70px 0 0 0;
+    }
+
+    .profile__user {
+        padding: 80px 0 379px 0;
+        max-width: 260px;
+    }
+
+    .profile__buttons {
+        padding: 0 0 40px 0;
+    }
+}

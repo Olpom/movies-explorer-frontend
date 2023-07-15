@@ -127,16 +127,26 @@
     transition: opacity 0.4s ease-in-out;
 }
 
+.form__submit-button:hover {
+    opacity: 0.8;
+}
+
+.form__submit-button_disabled {
+    border-radius: 3px;
+    background-color: #F8F8F8;
+    color: #c2c2c2;
+    cursor: not-allowed;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.8;
+}
+
 .form__submit_register .form__submit-button {
     margin-top: 69px;
 }
 
 .form__submit_login .form__submit-button {
     margin-top: 158px;
-}
-
-.form__submit-button:hover {
-    opacity: 0.8;
 }
 
 .form__subtitle {

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './Navigation.css';
 import '../Header/Header.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const LoggedIn = () => {
+    const location = useLocation();
     const [isNavigationMenu, setIsNavigationMenu] = useState(false);
 
     const openNavigationMenu = () => setIsNavigationMenu(true);
@@ -12,8 +13,13 @@ const LoggedIn = () => {
     return (
         <>
             <ul className='navigation__menu'>
-                <li><Link to='/movies' className='navigation__title navigation__title_active'>Фильмы</Link></li>
-                <li><Link to='/saved-movies' className='navigation__title'>Сохранённые фильмы</Link></li>
+                <li>
+                    <Link to='/movies'
+                        className={`navigation__title ${location.pathname === '/movies' ? 'navigation__title_active' : ''}`}>Фильмы</Link>
+                </li>
+                <li>
+                    <Link to='/saved-movies' className={`navigation__title ${location.pathname === '/saved-movies' ? 'navigation__title_active' : ''}`}>Сохранённые фильмы</Link>
+                </li>
             </ul>
 
             <div className='navigation__profile-decoration'>
@@ -26,9 +32,13 @@ const LoggedIn = () => {
             <div className={`navigation__sidebar ${isNavigationMenu ? 'navigation__sidebar_opened' : ''}`} >
                 <div className='navigation__sidebar-content'>
                     <ul className='navigation__sidebar-menu'>
-                        <li className='navigation__sidebar-title'><Link to='/' className='navigation__sidebar-link'>Главная</Link></li>
-                        <li className='navigation__sidebar-title navigation__sidebar-title_active'><Link to='/movies' className='navigation__sidebar-link'>Фильмы</Link></li>
-                        <li className='navigation__sidebar-title'><Link to='/saved-movies' className='navigation__sidebar-link'>Сохранённые фильмы</Link></li>
+                        <li className='navigation__sidebar-title'>
+                            <Link to='/' className='navigation__sidebar-link'>Главная</Link>
+                            </li>
+                        <li className={`navigation__sidebar-title ${location.pathname === '/movies' ? 'navigation__sidebar-title_active' : ''}`}>
+                            <Link to='/movies' className='navigation__sidebar-link'>Фильмы</Link>
+                            </li>
+                        <li className={`navigation__sidebar-title ${location.pathname === '/saved-movies' ? 'navigation__sidebar-title_active' : ''}`}><Link to='/saved-movies' className='navigation__sidebar-link'>Сохранённые фильмы</Link></li>
                     </ul>
                     <div className='navigation__profile'>
                         <Link to='/profile' className='navigation__link navigation__link_loggedin'>Аккаунт</Link>
