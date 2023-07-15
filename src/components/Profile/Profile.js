@@ -71,7 +71,6 @@ function Profile({ loggedIn, onSubmit }) {
                             className="profile__text"
                             type="text"
                             name="name"
-                            placeholder={userData.name}
                             value={userData.name}
                             onChange={handleInputChange}
                             disabled={!editMode}
@@ -84,7 +83,6 @@ function Profile({ loggedIn, onSubmit }) {
                             className="profile__text"
                             type="text"
                             name="email"
-                            placeholder={userData.email}
                             value={userData.email}
                             onChange={handleInputChange}
                             disabled={!editMode}
@@ -96,7 +94,7 @@ function Profile({ loggedIn, onSubmit }) {
                     {editMode ? (
                         <button
                             type="submit"
-                            className={`profile__button profile__save-button ${disabled ? 'profile__save-button_disabled' : ''} ${editMode ? '' : 'profile__button_hidden'}`}
+                            className={`profile__button profile__save-button ${disabled ? 'profile__save-button_disabled' : ''}`}
                             disabled={disabled}
                         >Сохранить</button>
                     ) : (
@@ -104,11 +102,11 @@ function Profile({ loggedIn, onSubmit }) {
                             <button
                                 type="button"
                                 onClick={toggleEditMode}
-                                className={`profile__button profile__edit-button ${editMode ? 'profile__button_hidden' : ''}`}>Редактировать</button>
+                                className="profile__button profile__edit-button">Редактировать</button>
                             <button
                                 type="button"
                                 onClick={handleLogout}
-                                className={`profile__button profile__exit-button ${editMode ? 'profile__button_hidden' : ''}`}>Выйти из аккаунта</button>
+                                className="profile__button profile__exit-button">Выйти из аккаунта</button>
                         </>
                     )}
                 </div>
