@@ -14,7 +14,7 @@ function Portfolio() {
                     <p className='portfolio__subtitle'>Адаптивный сайт</p>
                     <p className='portfolio__arrow'>↗</p>
                 </a>
-                <a href='olpom.github.io/react-mesto-auth/' className='portfolio__link' target='_blank' rel='noreferrer'>
+                <a href='https://olpom.github.io/react-mesto-auth/' className='portfolio__link' target='_blank' rel='noreferrer'>
                     <p className='portfolio__subtitle'>Одностраничное приложение</p>
                     <p className='portfolio__arrow'>↗</p>
                 </a>

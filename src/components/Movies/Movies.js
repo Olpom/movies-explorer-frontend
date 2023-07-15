@@ -11,7 +11,7 @@ function Movies({ loggedIn }) {
         <section className="movies">
             <Header loggedIn={loggedIn} />
             <SearchForm />
-            <MoviesCardList />
+            <MoviesCardList isSavedMoviesPage={false} />
             <div className="movies__add-button">
                 <button className="movies__button">Ещё</button>
             </div>

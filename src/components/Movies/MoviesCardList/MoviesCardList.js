@@ -2,15 +2,15 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ isSavedMoviesPage }) {
 
     return (
         <section className="moviescards">
             <ul className="moviescards__list">
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
+                <MoviesCard isSavedMoviesPage={isSavedMoviesPage} />
+                <MoviesCard isSavedMoviesPage={isSavedMoviesPage} />
+                <MoviesCard isSavedMoviesPage={isSavedMoviesPage} />
+                <MoviesCard isSavedMoviesPage={isSavedMoviesPage} />
             </ul>
         </section>
     )
