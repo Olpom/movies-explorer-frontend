@@ -59,11 +59,11 @@ function SignForm(props) {
                                 <p className="form__text">Имя</p>
                                 <input
                                     type="text"
-                                    className="form__input"
+                                    className={`form__input ${nameError && 'form__input_error'}`}
                                     id="name"
                                     name="name"
                                     required=""
-                                    placeholder="Имя"
+                                    placeholder="Ваше Имя"
                                     value={name}
                                     onChange={handleName} />
                             </label>
@@ -74,11 +74,11 @@ function SignForm(props) {
                         <p className="form__text">E-mail</p>
                         <input
                             type="email"
-                            className="form__input"
+                            className={`form__input ${emailError && 'form__input_error'}`}
                             id="email"
                             name="email"
                             required=""
-                            placeholder="Email"
+                            placeholder="email@example.com"
                             value={email}
                             onChange={handleEmail} />
                     </label>
@@ -87,11 +87,11 @@ function SignForm(props) {
                         <p className="form__text">Пароль</p>
                         <input
                             type="password"
-                            className="form__input"
+                            className={`form__input ${passwordError && 'form__input_error'}`}
                             id="password"
                             name="password"
                             required=""
-                            placeholder="Пароль"
+                            placeholder="Введите Пароль"
                             minLength={8}
                             maxLength={20}
                             value={password}

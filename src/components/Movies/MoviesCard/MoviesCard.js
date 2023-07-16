@@ -10,20 +10,19 @@ function MoviesCard({ isSavedMoviesPage }) {
     }
 
     return (
-        <li>
-            <img className="moviescard__image" alt="Фильм" src={movie} />
+        <li className="moviescard__card">
             <div className="moviescard__description">
                 <div className="moviescard__text">
                     <h2 className="moviescard__title">33 слова о дизайне</h2>
-                    <button
-                        className={`moviescard__button ${isSavedMoviesPage ? 'moviescard__button_delete' : (isSaved ? 'moviescard__button_saved' : '')}`}
-                        onClick={handleSaveClick}
-                    >
-                    </button>
+                    <h3 className="moviescard__length">2ч42м</h3>
                 </div>
-                <div className="moviescard__border"></div>
-                <h3 className="moviescard__length">2ч42м</h3>
+                <button
+                    className={`moviescard__button ${isSavedMoviesPage ? 'moviescard__button_delete' : (isSaved ? 'moviescard__button_saved' : '')}`}
+                    onClick={handleSaveClick}
+                >
+                </button>
             </div>
+            <img className="moviescard__image" alt="Фильм" src={movie} />
         </li>
     )
 }

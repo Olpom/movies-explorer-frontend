@@ -62,6 +62,7 @@
     }
 
     .page-notfound__link {
-        padding: 284px 0 30px;
+        padding: 284px 0 30px 0;
+        font-size: 12px;
     }
 }

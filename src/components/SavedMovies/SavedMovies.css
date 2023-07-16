@@ -1,3 +1,7 @@
 .movies__button_hidden {
     display: none;
 }
+
+.savedmovies__add-button {
+    margin-top: 9px;
+}

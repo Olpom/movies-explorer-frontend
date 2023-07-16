@@ -86,7 +86,7 @@
 }
 
 .navigation__button_loggedout:hover {
-    filter: brightness(150%);
+    filter: brightness(110%);
 }
 
 .navigation__button_loggedin {

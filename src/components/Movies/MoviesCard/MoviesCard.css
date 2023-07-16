@@ -1,7 +1,12 @@
+.moviescard__card {
+    background: #FDFDFD;
+    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+}
+
 .moviescard__image {
     display: block;
-    width: 270px;
-    height: 151px;
+    width: 364px;
+    height: 203px;
     object-fit: cover;
     margin: 0;
     padding: 0;
@@ -15,28 +20,25 @@
 
 .moviescard__description {
     display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 10px 0 0;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    padding: 14px;
 }
 
 .moviescard__text {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .moviescard__title {
     margin: 0;
     padding: 0;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
-    text-align: left;
-    min-height: 32px;
-    display: flex;
-    align-items: center;
 }
 
 .moviescard__length {
@@ -45,13 +47,13 @@
     color: #A0A0A0;
     margin: 0;
     padding: 0;
-    align-self: flex-start;
 }
 
 .moviescard__button {
     background: url('../../../images/not-saved.svg') no-repeat center / cover;
-    width: 24px;
-    height: 24px;
+    display: block;
+    width: 30px;
+    height: 30px;
     margin: 0;
     padding: 0;
     border-radius: 50%;
@@ -70,16 +72,8 @@
 
 .moviescard__button_delete {
     background-image: url('../../../images/delete-button.svg');
-    width: 16px;
-    height: 16px;
-}
-
-.moviescard__border {
-    height: 1px;
-    width: 270px;
-    margin: 13px 0 6px;
-    padding: 0;
-    background-color: #E8E8E8;
+    width: 30px;
+    height: 30px;
 }
 
 @media screen and (max-width: 900px) {
@@ -87,28 +81,11 @@
         width: 339px;
         height: 190px;
     }
-
-    .moviescard__border {
-        width: 339px;
-    }
 }
 
 @media screen and (max-width: 600px) {
     .moviescard__image {
         width: 300px;
         height: 168px;
-    }
-
-    .moviescard__title {
-        font-size: 12px;
-        min-height: 30px;
-    }
-
-    .moviescard__length {
-        font-size: 10px;
-    }
-
-    .moviescard__border {
-        width: 300px;
     }
 }

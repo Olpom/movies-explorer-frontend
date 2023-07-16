@@ -6,10 +6,10 @@
 
 .profile__greeting {
     margin: 0;
-    padding: 74px 0 0 0;
+    padding: 81px 0 111px;
     font-weight: 500;
     font-size: 24px;
-    line-height: 29px;
+    line-height: 16px;
     text-align: center;
 }
 
@@ -18,7 +18,7 @@
     max-width: 410px;
     margin: 0 auto;
     flex-direction: column;
-    padding: 123px 0 186px 0;
+    padding: 0;
     border: none;
 }
 
@@ -26,19 +26,19 @@
     display: flex;
     justify-content: space-between;
     margin: 0;
-    padding: 0 0 16px 0;
     width: 100%;
+    line-height: 16px;
+    padding: 16px 0;
 }
 
 .profile__inputs:last-of-type {
     border-top: 1px solid #e8e8e8;
-    padding: 17px 0 0 0;
+    padding-bottom: 0;
 }
 
 .profile__input {
     font-weight: 500;
     font-size: 11px;
-    line-height: 13px;
     margin: 0;
     padding: 0;
 }
@@ -46,7 +46,6 @@
 .profile__text {
     font-weight: 400;
     font-size: 11px;
-    line-height: 13px;
     margin: 0;
     padding: 0;
     border: none;
@@ -63,7 +62,7 @@
     font-weight: 400;
     font-size: 11px;
     line-height: 14px;
-    color: #FF004C;
+    color: #FF3055;
     padding: 0;
     margin: 0;
     opacity: 1;
@@ -77,14 +76,14 @@
 .profile__buttons {
     display: flex;
     margin: 0;
-    padding: 0 0 70px 0;
+    padding: 185px 0 70px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
 
 .profile__button {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 13px;
     line-height: 16px;
     border: none;
@@ -125,28 +124,29 @@
 
 @media screen and (max-width: 768px) {
     .profile__greeting {
-        padding-top: 236px;
-        line-height: 16px;
+        padding: 236px 0 85px;
     }
 
-    .profile__user {
-        padding: 103px 0 178px 0;
+    .profile__buttons {
+        padding-top: 175px;
     }
 }
 
 @media screen and (max-width: 448px) {
     .profile__greeting {
-        padding: 70px 0 0 0;
+        padding: 70px 0;
     }
 
     .profile__user {
-        padding: 88px 0 346px 0;
         max-width: 260px;
     }
 
+    .profile__buttons {
+        padding: 344px 0 40px;
+    }
+
     .profile__button {
-        font-size: 11px;
-        line-height: 15px;
+        font-size: 12px;
         min-width: 260px;
     }
 }
