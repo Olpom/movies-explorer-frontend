@@ -69,14 +69,12 @@
         line-height: 39px;
         letter-spacing: -1.24px;
         max-width: 300px;
-        position: static;
-        padding: 184px 10px 0;
+        padding: 143px 10px 0;
     }
 
     .promo__image {
         width: 100%;
         max-width: 680px;
-        position: static;
-        margin: 60px 0;
+        margin: 60px 0 0;
     }
 }
