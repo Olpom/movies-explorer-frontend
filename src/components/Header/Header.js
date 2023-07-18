@@ -11,7 +11,6 @@ function Header({ loggedIn }) {
     )
 
     return (
-
         <header className={headerClass}>
             <Link to='/'>
                 <img className='header__logo' src={logo} alt='Логотип' />

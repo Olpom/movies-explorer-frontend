@@ -13,7 +13,7 @@ function SearchForm() {
                     <input
                         className="searchform__input"
                         placeholder="Фильм"
-                        required=""
+                        required
                     />
                     <button className="searchform__button">Найти</button>
                 </form>

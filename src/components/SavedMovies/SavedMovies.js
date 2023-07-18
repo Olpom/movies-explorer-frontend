@@ -13,7 +13,7 @@ function SavedMovies({ loggedIn }) {
             <SearchForm />
             <MoviesCardList isSavedMoviesPage={true} />
             <div className="movies__add-button savedmovies__add-button">
-                <button className="movies__button movies__button_hidden">Ещё</button>
+                <button className="movies__button movies__button--hidden">Ещё</button>
             </div>
             <Footer />
         </section>

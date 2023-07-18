@@ -23,8 +23,8 @@ const LoggedIn = () => {
             </ul>
 
             <div className='navigation__profile-decoration'>
-                <Link to='/profile' className='navigation__link navigation__link_loggedin'>Аккаунт</Link>
-                <Link to='/profile' className='navigation__button navigation__button_loggedin'></Link>
+                <Link to='/profile' className='navigation__link navigation__link-loggedin'>Аккаунт</Link>
+                <Link to='/profile' className='navigation__button navigation__button-loggedin'></Link>
             </div>
 
             <button className='navigation__folded' onClick={openNavigationMenu}></button>
@@ -41,8 +41,8 @@ const LoggedIn = () => {
                         <li className={`navigation__sidebar-title ${location.pathname === '/saved-movies' ? 'navigation__sidebar-title_active' : ''}`}><Link to='/saved-movies' className='navigation__sidebar-link'>Сохранённые фильмы</Link></li>
                     </ul>
                     <div className='navigation__profile'>
-                        <Link to='/profile' className='navigation__link navigation__link_loggedin'>Аккаунт</Link>
-                        <Link to='/profile' className='navigation__button navigation__button_loggedin'></Link>
+                        <Link to='/profile' className='navigation__link navigation__link-loggedin'>Аккаунт</Link>
+                        <Link to='/profile' className='navigation__button navigation__button-loggedin'></Link>
                     </div>
                     <button className='navigation__close-button' onClick={closeNavigationMenu}></button>
                 </div>
@@ -53,8 +53,8 @@ const LoggedIn = () => {
 
 const LoggedOut = () => (
     <div className='navigation__profile'>
-        <Link to='/signup' className='navigation__link navigation__link_loggedout'>Регистрация</Link>
-        <Link to='/signin' className='navigation__button navigation__button_loggedout'>Войти</Link>
+        <Link to='/signup' className='navigation__link navigation__link-loggedout'>Регистрация</Link>
+        <Link to='/signin' className='navigation__button navigation__button-loggedout'>Войти</Link>
     </div>
 );
 
