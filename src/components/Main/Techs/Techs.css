@@ -1,0 +1,164 @@
+.techs {
+    padding: 100px 0;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
+.techs__heading {
+    margin: 0 auto;
+    display: flex;
+    width: calc(100% - 2 * 70px);
+    border-bottom: 1px solid #000;
+}
+
+.techs__title {
+    padding: 0 0 23px;
+    margin: 0;
+    font-size: 22px;
+    line-height: 27px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+}
+
+.techs__description {
+    margin: 0 auto;
+    padding: 90px 0 100px;
+    width: calc(100% - 2 * 70px);
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+}
+
+.techs__subtitle {
+    padding: 0;
+    margin: 0 auto;
+    font-size: 50px;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: -0.04em;
+}
+
+.techs__text {
+    margin: 0 auto;
+    padding: 26px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    text-align: center;
+}
+
+.techs__list {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 690px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 90px);
+    grid-template-rows: repeat(auto-fit, 60px);
+    grid-gap: 10px;
+    justify-content: center;
+}
+
+.techs__list-item {
+    padding: 22px 0;
+    margin: 0;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #e8e8e8;
+    list-style: none;
+}
+
+.techs__list-text {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.56px;
+}
+
+@media screen and (max-width: 768px) {
+    .techs {
+        padding: 90px 0;
+    }
+
+    .techs__heading {
+        width: calc(100% - 2 * 50px);
+    }
+
+    .techs__description {
+        width: calc(100% - 2 * 50px);
+        padding: 80px 0 83px;
+    }
+
+    .techs__title {
+        padding-bottom: 23px;
+    }
+
+    .techs__text {
+        padding: 22px 0 0;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .techs__list-item {
+        padding: 21px 0;
+    }
+
+    .techs__list {
+        padding: 0 60px;
+        grid-template-columns: repeat(auto-fit, 84px);
+        grid-template-rows: repeat(auto-fit, 57px);
+    }
+
+    .techs__list-text {
+        font-size: 12px;
+        letter-spacing: -0.48px;
+    }
+
+}
+
+@media screen and (max-width: 520px) {
+    .techs {
+        padding: 70px 0;
+    }
+
+    .techs__title {
+        padding-bottom: 28px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .techs__heading {
+        width: calc(100% - 2 * 18px);
+    }
+
+    .techs__description {
+        width: calc(100% - 2 * 14px);
+        padding: 60px 0 50px;
+    }
+
+    .techs__subtitle {
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .techs__text {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .techs__list {
+        padding: 0 71px;
+    }
+
+    .techs__list-item {
+        padding: 21px 0;
+        margin: 0;
+    }
+
+    .techs__list-text {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

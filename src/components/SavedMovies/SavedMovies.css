@@ -1,0 +1,7 @@
+.movies__button--hidden {
+    display: none;
+}
+
+.savedmovies__add-button {
+    margin-top: 9px;
+}
