@@ -15,7 +15,10 @@ function SignForm(props) {
     const [nameError, setNameError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    const disabled = !name || nameError || !email || emailError || !password || passwordError;
+    const disabled = isRegister
+        ? !name || nameError || !email || emailError || !password || passwordError
+        : !email || emailError || !password || passwordError;
+
 
     function handleName(evt) {
         const { value } = evt.target;

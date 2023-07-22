@@ -6,32 +6,47 @@ class MainApi {
 
   // Обработчик ошибок
   _handleResponse(res) {
+    console.log("Response from server: ", res);
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
 
   // Функция регистрации пользователя
-  register(data) {
+  register({ name, email, password }) {
+    console.log('Registering with data: ', { name, email, password });
     return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify(data)
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, password })
     })
-      .then(this._handleResponce)
+      .then(this._handleResponse)
   };
 
   // Функция авторизации пользователя
-  login(data) {
+  login({ email, password }) {
+    console.log('Logging in with data: ', { email, password });
+    console.log("Data sent to server for login: ", { email, password });
     return fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify(data)
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password })
     })
-      .then(this._handleResponce)
+      .then(this._handleResponse)
   };
 
   // Задаем токен
-  setToken(token) {
-    this._headers.Authorization = `Bearer ${token}`
+  getToken(token) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    })
+      .then(this._handleResponse);
   }
 
   // Получаем данные пользователя
@@ -43,71 +58,54 @@ class MainApi {
       .then(this._handleResponse);
   }
 
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+  updateUserInfo(data) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+      }),
+    })
+      .then(this._handleResponse);
+  }
+
+  getMovies() {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'GET',
       headers: this._headers
     })
       .then(this._handleResponse);
   }
 
-  editUserInfo({ name, about }) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({ name, about })
-    })
-      .then(this._handleResponse);
-  }
-
-  addCard({ name, link }) {
-    return fetch(`${this._baseUrl}/cards`, {
+  addMovies(data) {
+    return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ name, link })
+      body: JSON.stringify(data)
     })
       .then(this._handleResponse);
   }
 
-  changeLikeCardStatus(cardId, isLiked) {
-    if (isLiked) {
-      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-        method: 'PUT',
-        headers: this._headers,
-      })
-        .then(this._handleResponse)
-    } else {
-      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-        method: 'DELETE',
-        headers: this._headers
-      })
-        .then(this._handleResponse);
-    }
-  }
-
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+  deleteMovies(id) {
+    return fetch(`${this._baseUrl}/movies/${id}`, {
       method: 'DELETE',
       headers: this._headers
     })
       .then(this._handleResponse);
   }
 
-  updateProfileAvatar(avatarUrl) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({ avatar: avatarUrl })
-    })
-      .then(this._handleResponse);
+  updateToken() {
+    this._headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
   }
 }
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-61',
+const mainApi = new MainApi({
+  baseUrl: 'http://localhost:3001',
   headers: {
-    authorization: '52fc6959-8692-45e7-a047-982dcb1b275b',
+    'authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
   }
 });
 
-export default api;
+export default mainApi;

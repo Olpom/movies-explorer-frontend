@@ -11,10 +11,13 @@ export const validateURL = (value) => {
 
 // функции валидации для текстовых полей
 export const validateInput = (value) => {
+    const pattern = /^[A-Za-zА-Яа-я -]+$/;
     if (!value.trim()) {
         return 'Поле не может быть пустым';
     } else if (value.length < 2) {
         return 'Поле должно содержать не менее 2 символов';
+    } else if (!pattern.test(value)) {
+        return 'Поле может содержать только латиницу, кириллицу, пробел или дефис';
     } else {
         return '';
     }

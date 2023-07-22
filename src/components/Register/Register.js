@@ -1,8 +1,18 @@
 import React from 'react';
 import './Register.css';
 import SignForm from '../SignForm/SignForm';
+import mainApi from '../../utils/MainApi';
 
-function Register() {
+function Register({ onRegister}) {
+//
+//    const handleRegister = async ({ name, email, password }) => { 
+//        try {
+//            const response = await mainApi.register({ name, email, password }); // Ожидаем ответ API
+//            onRegister(response); 
+//        } catch (err) {
+//            console.error(`Ошибка регистрации: ${err}`); 
+//        }
+//    }
     return (
         <SignForm
             isRegister={true}
@@ -10,7 +20,8 @@ function Register() {
             buttonText="Зарегистрироваться"
             spanText="Уже зарегистрированы?"
             linkText="Войти"
-            linkPath="/signin"
+            linkPath="/signin" 
+            onSubmit={onRegister}
         />
     );
 }

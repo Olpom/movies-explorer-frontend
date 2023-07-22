@@ -1,8 +1,16 @@
 import React from 'react';
-import './Login.css';
 import SignForm from '../SignForm/SignForm';
+import mainApi from '../../utils/MainApi';
 
-function Login() {
+function Login({ onLogin }) {
+   // const handleLogin = async ({ email, password}) => {
+   //     try {
+   //         const response = await mainApi.login({ email, password}); // Ожидаем ответ API
+   //         onLogin(response); 
+   //     } catch (err) {
+   //         console.error(`Ошибка входа: ${err}`); 
+   //     }
+   // }
     return (
         <SignForm
             isRegister={false}
@@ -10,7 +18,8 @@ function Login() {
             buttonText="Войти"
             spanText="Ещё не зарегистрированы?"
             linkText="Регистрация"
-            linkPath="/signup"
+            linkPath="/signup" 
+            onSubmit={onLogin}
         />
     );
 }
