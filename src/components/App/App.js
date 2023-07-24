@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -9,54 +9,113 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
+import InfoPopup from '../InfoPopup/InfoPopup';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import mainApi from '../../utils/MainApi';
+import Token from '../../utils/token';
 
 function App() {
 
-  // переменные состояния для отслеживания состояния аутентификации пользователя
+  // переменная состояния для отслеживания состояния аутентификации пользователя
   const [loggedIn, setLoggedIn] = useState(false);
-
+  // Переменная состояния пользователя 
   const [currentUser, setCurrentUser] = useState({});
+  // Переменные состояния попапа
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
+  const [popupText, setPopupText] = useState('');
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const token = Token.getToken();
+    if (location.pathname === '/' && token) {
+      Token.removeToken();
+      mainApi.updateToken();
+      setLoggedIn(false);
+      setCurrentUser(null);
+    } else if (token) {
+      mainApi.updateToken();
+      handleUserInfo();
+    }
+  }, [location]);
+
+  function handleUserInfo() {
+    mainApi.getUserInfo()
+      .then((user) => {
+        setCurrentUser(user);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log('Ошибка при получении данных пользователя: ', err);
+      });
+  }
 
   function handleRegister(userData) {
-    mainApi.register({ name: userData.name, email: userData.email, password: userData.password })
+    mainApi.register({
+      name: userData.name,
+      email: userData.email,
+      password: userData.password
+    })
       .then((res) => {
         console.log('Ответ сервера на регистрацию: ', res);
-        if (res && res._id) {
+        if (res && res.data) {
+          setPopupText('Вы успешно зарегистрировались!');
+          setIsOpenPopup(true);
           handleLogin(userData);
+          console.log('Успешная регистрация: ', res && res.data);
         }
       })
       .catch((err) => {
+        setPopupText(err);
+        setIsOpenPopup(true);
         console.log('Ошибка сервера при регистрации: ', err);
       });
   }
 
   function handleLogin(userData) {
-    mainApi.login({ email: userData.email, password: userData.password })
-      .then((res) => {
-        console.log('Ответ сервера на авторизацию: ', res);
-        if (res && res.token) { // Проверяем наличие токена в ответе
-          localStorage.setItem('jwt', res.token); // Сохраняем токен в локальное хранилище
-          mainApi.updateToken(); // Обновляем токен в заголовках запроса
-
-          // Получаем информацию о пользователе
-          mainApi.getUserInfo()
-            .then((user) => {
-              setLoggedIn(true); // Устанавливаем состояние входа в систему в true
-              setCurrentUser(user); // Устанавливаем информацию о текущем пользователе
-              navigate("/movies"); // Переходим на страницу с фильмами
-            })
-            .catch((err) => {
-              console.log('Ошибка при получении данных пользователя: ', err);
-            });
+    mainApi.login({
+      email: userData.email,
+      password: userData.password
+    })
+      .then(({ token }) => {
+        console.log('Ответ сервера на авторизацию');
+        if (token) {
+          console.log('Token received: ', token);
+          Token.saveToken(token);
+          mainApi.updateToken();
+          console.log('Headers after login: ', mainApi._headers);
+          setLoggedIn(true);
+          handleUserInfo();
+          navigate('/movies');
         }
       })
       .catch((err) => {
+        setPopupText(err);
+        setIsOpenPopup(true);
         console.log('Ошибка сервера при авторизации: ', err);
       });
+  }
+
+  function openPopup(text) {
+    setPopupText(text);
+    setIsOpenPopup(true);
+  }
+
+  function closePopup() {
+    setIsOpenPopup(false);
+    setPopupText('');
+  }
+
+  // Функция выхода из аккаунта
+  function handleLogOut() {
+    localStorage.clear();
+    setLoggedIn(false);
+    setCurrentUser(null);
+    mainApi.updateToken();
+    //Token.removeToken();
+    navigate('/signin');
+    console.log('Выход из аккаунта');
   }
 
   return (
@@ -64,16 +123,45 @@ function App() {
       <div className='app'>
         <Routes>
 
-          <Route path='/signup' element={<Register onRegister={handleRegister} />} />
+          <Route
+            path='/signup'
+            element={
+              <ProtectedRoute loggedIn={!loggedIn}>
+                <Register
+                  onRegister={handleRegister}
+                />
+              </ProtectedRoute>} />
 
           <Route path='/signin' element={<Login onLogin={handleLogin} />} />
 
           <Route path='/' element={<Main loggedIn={loggedIn} />} />
-          <Route path='/movies' element={<Movies loggedIn={loggedIn} />} />
+
+          <Route
+            path='/movies'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Movies
+                  loggedIn={loggedIn}
+                  openPopup={openPopup} />
+              </ProtectedRoute>} />
+
           <Route path='/saved-movies' element={<SavedMovies loggedIn={loggedIn} />} />
-          <Route path='/profile' element={<Profile loggedIn={loggedIn} />} />
+
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Profile
+                  loggedIn={loggedIn}
+                  onLogOut={handleLogOut}
+                  openPopup={openPopup}
+                />
+              </ProtectedRoute>} />
+
           <Route path='/*' element={<Page404 />} />
         </Routes>
+
+        <InfoPopup text={popupText} isOpen={isOpenPopup} onClose={closePopup} />
       </div>
     </CurrentUserContext.Provider>
   )

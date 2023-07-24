@@ -6,8 +6,10 @@ class MainApi {
 
   // Обработчик ошибок
   _handleResponse(res) {
-    console.log("Response from server: ", res);
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    console.log("Ответ сервера: ", res);
+    return res.ok 
+    ? res.json() 
+    : res.json().then(err => Promise.reject(`${err.message ||res.status}`));
   }
 
   // Функция регистрации пользователя
@@ -26,7 +28,6 @@ class MainApi {
   // Функция авторизации пользователя
   login({ email, password }) {
     console.log('Logging in with data: ', { email, password });
-    console.log("Data sent to server for login: ", { email, password });
     return fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
       headers: {
@@ -51,6 +52,7 @@ class MainApi {
 
   // Получаем данные пользователя
   getUserInfo() {
+    console.log('Headers before getUserInfo: ', this._headers);
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers
@@ -59,6 +61,7 @@ class MainApi {
   }
 
   updateUserInfo(data) {
+    console.log('Headers before updateUserInfo: ', this._headers);
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -96,14 +99,33 @@ class MainApi {
   }
 
   updateToken() {
-    this._headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      this._headers.authorization = `Bearer ${token}`;
+      console.log('Updated headers: ', this._headers);
+    } else {
+      delete this._headers.authorization;
+      console.log('Deleted authorization from headers: ', this._headers);
+    }
   }
+
+ // updateToken() {
+ //   const token = localStorage.getItem('jwt');
+ //   if (token) {
+ //     this._headers.authorization = `Bearer ${token}`;
+ //     console.log('Updated headers: ', this._headers);
+ //   }
+ // }
+
+//  updateToken() {
+//    this._headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
+//    console.log('Updated headers: ', this._headers);
+//  }
 }
 
 const mainApi = new MainApi({
   baseUrl: 'http://localhost:3001',
   headers: {
-    'authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
   }
 });

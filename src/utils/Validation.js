@@ -28,7 +28,7 @@ export const validateEmail = (value) => {
     if (!value) {
         return 'Email не может быть пустым';
     }
-    const pattern = /^[\w-.+]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
     if (!pattern.test(value)) {
         return 'Введите корректный email: name@example.ru';
     }

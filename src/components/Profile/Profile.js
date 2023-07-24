@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Header from '../Header/Header';
 import { validateInput, validateEmail } from '../../utils/Validation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
-function Profile({ loggedIn, onSubmit }) {
+function Profile({ openPopup, onLogOut, loggedIn }) {
+
+    const currentUser = useContext(CurrentUserContext);
+
+    // Переменные состояния данных пользователя
+    const [name, setName] = useState(currentUser.data.name);
+    const [email, setEmail] = useState(currentUser.data.email);
     const navigate = useNavigate();
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState({
-        name: 'Виталий',
-        email: 'pochta@yandex.ru',
+        name: currentUser.data.name,
+        email: currentUser.data.email,
     });
 
-    // Временное решение для вывода ошибок с применением валидации
+    // Вывод ошибок с применением валидации
     const [userDataError, setUserDataError] = useState('');
     const disabled = !{ userData } || userDataError;
+
+    console.log(currentUser); // Выводим в консоль объект currentUser
 
     function toggleEditMode() {
         setEditMode(!editMode);
     }
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+    }, [currentUser.name, currentUser.email]);
 
     function handleInputChange(evt) {
         const { name, value } = evt.target;
@@ -36,23 +51,18 @@ function Profile({ loggedIn, onSubmit }) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        // Заглушка для обновления данных пользователя
-        console.log('Пользователь обновлен:', {
-            name: userData.name,
-            email: userData.email
-        });
-        setEditMode(false);
-        if (typeof onSubmit === 'function') {
-            onSubmit(userData);
-        }
+        mainApi.updateUserInfo(userData)
+            .then((response) => {
+                const updatedUser = response.data;
+                setUserData(updatedUser);;
+                setEditMode(false);
+                openPopup('Данные успешно изменены!');
+            })
+            .catch((err) => {
+                console.log('Ошибка при обновлении данных пользователя: ', err);
+                setUserDataError('Ошибка при обновлении данных. Попробуйте еще раз.');
+            });
     }
-
-    function handleLogout() {
-        // Заглушка для выхода из системы
-        console.log('Пользователь вышел из системы');
-        navigate('/');
-    }
-
 
     return (
         <div>
@@ -105,7 +115,7 @@ function Profile({ loggedIn, onSubmit }) {
                                 className="profile__button profile__edit-button">Редактировать</button>
                             <button
                                 type="button"
-                                onClick={handleLogout}
+                                onClick={onLogOut}
                                 className="profile__button profile__exit-button">Выйти из аккаунта</button>
                         </>
                     )}
