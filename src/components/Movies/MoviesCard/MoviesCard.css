@@ -76,6 +76,10 @@
     height: 30px;
 }
 
+.moviescard__trailerlink {
+    text-decoration: none;
+}
+
 @media screen and (max-width: 900px) {
     .moviescard__image {
         width: 339px;

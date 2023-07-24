@@ -108,19 +108,6 @@ class MainApi {
       console.log('Deleted authorization from headers: ', this._headers);
     }
   }
-
- // updateToken() {
- //   const token = localStorage.getItem('jwt');
- //   if (token) {
- //     this._headers.authorization = `Bearer ${token}`;
- //     console.log('Updated headers: ', this._headers);
- //   }
- // }
-
-//  updateToken() {
-//    this._headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
-//    console.log('Updated headers: ', this._headers);
-//  }
 }
 
 const mainApi = new MainApi({
