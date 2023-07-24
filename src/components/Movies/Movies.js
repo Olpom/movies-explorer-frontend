@@ -144,8 +144,8 @@ function Movies({ loggedIn }) {
 
     return (
         <>
+            <section className="movies">
             <Header loggedIn={loggedIn} />
-            <main className="movies">
 
                 <SearchForm
                     filterMovies={filterMovies}
@@ -163,8 +163,8 @@ function Movies({ loggedIn }) {
                             onClick={uploadMovies} >Ещё</button>
                     </div>}
 
-            </main>
             <Footer />
+            </section>
         </>
     );
 }
