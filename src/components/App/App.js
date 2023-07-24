@@ -16,7 +16,7 @@ import Token from '../../utils/token';
 
 function App() {
 
-  // переменная состояния для отслеживания состояния аутентификации пользователя
+  // Переменная состояния для отслеживания состояния аутентификации пользователя
   const [loggedIn, setLoggedIn] = useState(false);
   // Переменная состояния пользователя 
   const [currentUser, setCurrentUser] = useState({});
@@ -113,7 +113,6 @@ function App() {
     setLoggedIn(false);
     setCurrentUser(null);
     mainApi.updateToken();
-    //Token.removeToken();
     navigate('/signin');
     console.log('Выход из аккаунта');
   }
@@ -132,9 +131,18 @@ function App() {
                 />
               </ProtectedRoute>} />
 
-          <Route path='/signin' element={<Login onLogin={handleLogin} />} />
+          <Route
+            path='/signin'
+            element={
+              <ProtectedRoute loggedIn={!loggedIn}>
+                <Login
+                  onLogin={handleLogin} />
+              </ProtectedRoute>} />
 
-          <Route path='/' element={<Main loggedIn={loggedIn} />} />
+          <Route
+            path='/'
+            element={
+              <Main loggedIn={loggedIn} />} />
 
           <Route
             path='/movies'
@@ -145,7 +153,12 @@ function App() {
                   openPopup={openPopup} />
               </ProtectedRoute>} />
 
-          <Route path='/saved-movies' element={<SavedMovies loggedIn={loggedIn} />} />
+          <Route
+            path='/saved-movies'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <SavedMovies loggedIn={loggedIn} />
+              </ProtectedRoute>} />
 
           <Route
             path='/profile'
@@ -158,9 +171,11 @@ function App() {
                 />
               </ProtectedRoute>} />
 
-          <Route path='/*' element={<Page404 />} />
-        </Routes>
+          <Route
+            path='/*'
+            element={<Page404 />} />
 
+        </Routes>
         <InfoPopup text={popupText} isOpen={isOpenPopup} onClose={closePopup} />
       </div>
     </CurrentUserContext.Provider>

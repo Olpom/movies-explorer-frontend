@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Header from '../Header/Header';
 import { validateInput, validateEmail } from '../../utils/Validation';
@@ -11,9 +10,6 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
     const currentUser = useContext(CurrentUserContext);
 
     // Переменные состояния данных пользователя
-    const [name, setName] = useState(currentUser.data.name);
-    const [email, setEmail] = useState(currentUser.data.email);
-    const navigate = useNavigate();
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState({
         name: currentUser.data.name,
@@ -24,16 +20,24 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
     const [userDataError, setUserDataError] = useState('');
     const disabled = !{ userData } || userDataError;
 
+    // Инициализируем состояние загрузки
+    const [isLoading, setIsLoading] = useState(true);
+
     console.log(currentUser); // Выводим в консоль объект currentUser
+
+    useEffect(() => {
+        if (currentUser.data) {
+            setUserData({
+                name: currentUser.data.name,
+                email: currentUser.data.email,
+            });
+            setIsLoading(false);
+        }
+    }, [currentUser]);
 
     function toggleEditMode() {
         setEditMode(!editMode);
     }
-
-    useEffect(() => {
-        setName(currentUser.name);
-        setEmail(currentUser.email);
-    }, [currentUser.name, currentUser.email]);
 
     function handleInputChange(evt) {
         const { name, value } = evt.target;
@@ -54,7 +58,7 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
         mainApi.updateUserInfo(userData)
             .then((response) => {
                 const updatedUser = response.data;
-                setUserData(updatedUser);;
+                setUserData(updatedUser);
                 setEditMode(false);
                 openPopup('Данные успешно изменены!');
             })
@@ -70,7 +74,7 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
             <form className="profile"
                 onSubmit={handleSubmit}
             >
-                <h2 className="profile__greeting">Привет, {userData.name}!</h2>
+                <h2 className="profile__greeting">{isLoading ? 'Загрузка...' : `Привет, ${userData.name}!`}</h2>
                 <fieldset className="profile__user"
                     disabled={!editMode}
                 >
