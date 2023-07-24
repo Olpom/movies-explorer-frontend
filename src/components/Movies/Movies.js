@@ -6,7 +6,6 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
-import Token from '../../utils/token';
 
 // Фильмы, отображаемые на экране
 const moviesDisplay = () => {

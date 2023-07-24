@@ -149,8 +149,7 @@ function App() {
             element={
               <ProtectedRoute loggedIn={loggedIn}>
                 <Movies
-                  loggedIn={loggedIn}
-                  openPopup={openPopup} />
+                  loggedIn={loggedIn} />
               </ProtectedRoute>} />
 
           <Route

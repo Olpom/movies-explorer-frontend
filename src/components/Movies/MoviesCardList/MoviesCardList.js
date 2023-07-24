@@ -9,7 +9,11 @@ function MoviesCardList({ movies, handleSavedMovie, searchQuery, loadingStatus }
         <section className="moviescards">
             {loadingStatus && <Preloader />}
             <ul className="moviescards__list">
-                {movies.map((movie) => <MoviesCard key={movie.movieId} movie={movie} handleSavedMovie={handleSavedMovie} />)}
+                {movies.map((movie) =>
+                    <MoviesCard
+                        key={movie.movieId}
+                        movie={movie}
+                        handleSavedMovie={handleSavedMovie} />)}
                 {(movies.length === 0 && searchQuery && !loadingStatus) &&
                     <li >
                         <span className="moviescardlist__notfound">Ничего не найдено</span>
