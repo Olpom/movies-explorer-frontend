@@ -14,6 +14,7 @@ function MoviesCardList({ movies, handleSavedMovie, searchQuery, loadingStatus }
                         key={movie.movieId}
                         movie={movie}
                         handleSavedMovie={handleSavedMovie} />)}
+
                 {(movies.length === 0 && searchQuery && !loadingStatus) &&
                     <li >
                         <span className="moviescardlist__notfound">Ничего не найдено</span>

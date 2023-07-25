@@ -12,7 +12,7 @@ function MoviesCard({ movie, handleSavedMovie }) {
     const minuteDuration = movie.duration === 60 ? '' : `${movie.duration % 60} м`;
     const movieDuration = hourDuration + minuteDuration;
 
-    const savedMovie = () => handleSavedMovie(movie)
+    const savedMovie = () => handleSavedMovie(movie);
 
     return (
         <li className="moviescard__card">
@@ -30,12 +30,14 @@ function MoviesCard({ movie, handleSavedMovie }) {
                     <h3 className="moviescard__length">{movieDuration}</h3>
                 </div>
 
-                {(location.pathname === "/movies") && <button
-                    className={buttonClass}
-                    onClick={savedMovie}></button>}
-                {(location.pathname === "/saved-movies") && <button
-                    className="moviescard__button_delete"
-                    onClick={savedMovie}></button>}
+                {(location.pathname === "/movies") &&
+                    <button
+                        className={buttonClass}
+                        onClick={savedMovie}></button>}
+                {(location.pathname === "/saved-movies") &&
+                    <button
+                        className="moviescard__button_delete"
+                        onClick={savedMovie}></button>}
             </div>
         </li>
     )

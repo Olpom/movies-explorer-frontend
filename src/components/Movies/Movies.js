@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Movies.css';
 import Header from '../Header/Header';
 import SearchForm from './SearchForm/SearchForm';
@@ -37,6 +37,11 @@ function Movies({ loggedIn }) {
     // Переменная поиска
     const [searchQuery, setSearchQuery] = useState(false);
 
+    // Обновление локального хранилища при изменении состояния movies
+    useEffect(() => {
+        localStorage.setItem('local-movies', JSON.stringify(movies));
+    }, [movies]);
+
     // Загружаем фильмы
     const uploadMovies = () => {
         const display = moviesDisplay();
@@ -45,7 +50,7 @@ function Movies({ loggedIn }) {
 
     // Фильтр фильмов
     const filterMovies = (search) => {
-        setSearchQuery(true)
+        setSearchQuery(true);
 
         // Фильтр фильмов по названию и продолжительности
         const filter = (movies) => {
@@ -54,17 +59,26 @@ function Movies({ loggedIn }) {
                 const isShortMovie = search.isShortMovie ? movie.duration <= 40 : true;
                 return isMovieTitle && isShortMovie;
             }))
+
         }
         if (movies.length === 0) {
             const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
 
             if (localMovies.length === 0) {
+
+                console.log('Шаг1 localMovies.length', JSON.stringify(localMovies));
+
                 mainApi.updateToken();
                 setLoadingStatus(true);
                 Promise.all([moviesApi.getMovies(), mainApi.getMovies()])
                     .then(([beatFilms, { data: localFilms }]) => {
+
+                        console.log('Шаг2 beatFilms after Promise:', beatFilms, 'data:', localFilms);
+
                         const mixedFilms = beatFilms.map(movie => {
                             const localMovie = localFilms.find((localMovie) => localMovie.movieId === movie.id);
+
+                            console.log('Шаг3 localMovie', localMovie);
 
                             // Задаем единое название для всех фильмов
                             movie._id = localMovie !== undefined ? localMovie._id : '';
@@ -73,40 +87,57 @@ function Movies({ loggedIn }) {
                             movie.saved = localMovie !== undefined;
                             return movie;
                         })
+                        console.log('Шаг4 movie ID', mixedFilms);
                         setMovies(mixedFilms);
+
                         filter(mixedFilms);
 
                         // Сохраняем Битфильмы в локальное хранилище
                         localStorage.setItem('local-movies', JSON.stringify(mixedFilms));
+
+                        //setMovies(mixedFilms);
+
+                        console.log('Шаг5 mixedFilms', mixedFilms);
                         setLoadingStatus(false);
                     });
             } else {
                 setMovies(localMovies);
                 filter(localMovies);
+                console.log('Шаг6 localMovies', localMovies);
             }
         } else {
             filter(movies);
-            setDisplayedMovies(display.start)
+            setDisplayedMovies(display.start);
+            console.log('Шаг7 setDisplayedMovies', movies);
         }
     }
 
     // Взаимодействие с карточкой фильма (удалить/сохранить)
     const handleSavedMovie = (movie) => {
         if (movie.saved) {
+            console.log('Шаг8 movie.saved', movie.saved);
+            //mainApi.updateToken();
             mainApi.deleteMovies(movie._id)
                 .then(() => {
+                    console.log('Шаг9 movie._id', movie._id);
                     setMovies((beatMovies) => {
                         const editedMovies = beatMovies.map(beatMovie => {
                             if (beatMovie._id === movie._id) {
                                 beatMovie.saved = false;
                             }
                             return beatMovie;
-                        })
+                        });
+                        console.log('Шаг10 editedMovies', editedMovies);
                         localStorage.setItem('local-movies', JSON.stringify(editedMovies));
+
+                        console.log('Шаг11 editedMovies', editedMovies);
                         return editedMovies;
                     })
                     localStorage.removeItem('saved-movies');
                 })
+                .catch((err) => {
+                    console.err('Ошибка удаления фильма: ', err);
+                });
         } else {
             const recentMovie = {
                 country: movie.country,
@@ -121,30 +152,44 @@ function Movies({ loggedIn }) {
                 nameRU: movie.nameRU,
                 nameEN: movie.nameEN,
             }
+            console.log('Шаг12 recentMovie', recentMovie);
+            //mainApi.updateToken();
             mainApi.addMovies(recentMovie)
                 .then((serverMovie) => {
+
+                    console.log('Шаг13 serverMovie Присвоен _id', serverMovie);
+
                     setMovies((beatMovies) => {
                         localStorage.removeItem('saved-movies');
+
+                        console.log('Шаг14 beatMovies', beatMovies);
+
                         const editedMovies = beatMovies.map(beatMovie => {
-                            if (beatMovie.id === serverMovie.movieId) {
+                            if (beatMovie.movieId === serverMovie.newMovie.movieId) {
                                 beatMovie.saved = true;
-                                beatMovie._id = serverMovie._id;
-                                beatMovie.movieId = serverMovie.movieId;
-                                beatMovie.thumbnail = serverMovie.thumbnail;
+                                beatMovie._id = serverMovie.newMovie._id;
+                                beatMovie.movieId = serverMovie.newMovie.movieId;
+                                beatMovie.thumbnail = serverMovie.newMovie.thumbnail;
                             }
                             return beatMovie;
                         })
+                        console.log('Шаг15 Saved beatMovie', editedMovies);
+
                         localStorage.setItem('local-movies', JSON.stringify(editedMovies));
                         return editedMovies;
                     })
+
                 })
+                .catch((err) => {
+                    console.error('Ошибка добавления фильма: ', err);
+                });
         }
     }
 
     return (
         <>
             <section className="movies">
-            <Header loggedIn={loggedIn} />
+                <Header loggedIn={loggedIn} />
 
                 <SearchForm
                     filterMovies={filterMovies}
@@ -162,7 +207,7 @@ function Movies({ loggedIn }) {
                             onClick={uploadMovies} >Ещё</button>
                     </div>}
 
-            <Footer />
+                <Footer />
             </section>
         </>
     );
