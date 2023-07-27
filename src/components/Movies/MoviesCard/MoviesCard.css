@@ -31,7 +31,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 10px;
 }
 
 .moviescard__title {
@@ -39,6 +38,8 @@
     padding: 0;
     font-size: 15px;
     font-weight: 500;
+    text-align: left;
+    min-height: 35px;
 }
 
 .moviescard__length {
@@ -67,7 +68,7 @@
 }
 
 .moviescard__button_saved {
-    background-image: url('../../../images/saved.svg');
+    background: url('../../../images/saved.svg') no-repeat center / cover;
 }
 
 .moviescard__button_delete {

@@ -16,20 +16,11 @@ function MoviesCard({ movie, handleSavedMovie }) {
 
     return (
         <li className="moviescard__card">
-            <a href={movie.trailerLink}
-                target="_blank"
-                className="moviescard__trailerlink"
-                rel="noreferrer">
-                <img className="moviescard__image"
-                    alt={movie.nameRU}
-                    src={movie.thumbnail} />
-            </a>
             <div className="moviescard__description">
                 <div className="moviescard__text">
                     <h2 className="moviescard__title">{movie.nameRU}</h2>
                     <h3 className="moviescard__length">{movieDuration}</h3>
                 </div>
-
                 {(location.pathname === "/movies") &&
                     <button
                         className={buttonClass}
@@ -39,6 +30,14 @@ function MoviesCard({ movie, handleSavedMovie }) {
                         className="moviescard__button_delete"
                         onClick={savedMovie}></button>}
             </div>
+            <a href={movie.trailerLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="moviescard__trailerlink">
+                <img className="moviescard__image"
+                    alt={movie.nameRU}
+                    src={movie.thumbnail} />
+            </a>
         </li>
     )
 }

@@ -144,6 +144,19 @@
     display: none;
 }
 
+/* Новые стили для авторизованного пользователя на главной странице */
+.navigation__main-loggedin .navigation__folded {
+    border-radius: 11%;
+}
+
+.navigation__main-loggedin .navigation__profile-decoration {
+    background: #fff;
+} 
+
+.navigation__main-loggedin .navigation__title {
+    color: #fff;
+} 
+
 @media screen and (max-width: 768px) {
     .navigation {
         width: fit-content;
@@ -325,7 +338,7 @@
         width: 40px;
         height: 43px;
         margin: 0 14px 0 0;
-        background: url("../../images/menu-folded-small.svg");
+        background: #fff url("../../images/menu-folded-small.svg") no-repeat center;
     }
 
     .navigation__sidebar-content {

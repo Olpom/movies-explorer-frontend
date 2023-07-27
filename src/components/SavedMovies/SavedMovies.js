@@ -14,6 +14,11 @@ function SavedMovies({ loggedIn }) {
     const [movies, setMovies] = useState([]);
     const [filteredCards, setFilteredCards] = useState([]);
 
+    useEffect(() => {
+        const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
+        setFilteredCards(localMovies);
+    }, []);
+
     // Фильтр фильмов
     const filterMovies = (search) => {
         setFilteredCards(movies.filter((movie) => {
@@ -47,12 +52,13 @@ function SavedMovies({ loggedIn }) {
             .then(() => {
                 setFilteredCards((savedMovies) => {
                     const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
-                    const editedLocalMovies = localMovies.map((movie) => {
-                        if (movie.id === movie.movieId) {
-                            movie.saved = false;
+                    const editedLocalMovies = localMovies.map((localMovie) => {
+                        if (localMovie.id === movie.movieId) {
+                            localMovie.saved = false;
                         }
-                        return movie;
+                        return localMovie;
                     })
+
                     localStorage.setItem('local-movies', JSON.stringify(editedLocalMovies));
 
                     const filteredSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movie._id);
@@ -61,6 +67,7 @@ function SavedMovies({ loggedIn }) {
                 })
             })
     }
+
 
     return (
         <section className="savedmovies">

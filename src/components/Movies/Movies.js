@@ -136,7 +136,7 @@ function Movies({ loggedIn }) {
                     localStorage.removeItem('saved-movies');
                 })
                 .catch((err) => {
-                    console.err('Ошибка удаления фильма: ', err);
+                    console.error('Ошибка удаления фильма: ', err);
                 });
         } else {
             const recentMovie = {
@@ -162,7 +162,7 @@ function Movies({ loggedIn }) {
                     setMovies((beatMovies) => {
                         localStorage.removeItem('saved-movies');
 
-                        console.log('Шаг14 beatMovies', beatMovies);
+                        console.log('Шаг14 saved-movies', beatMovies);
 
                         const editedMovies = beatMovies.map(beatMovie => {
                             if (beatMovie.movieId === serverMovie.newMovie.movieId) {
@@ -176,6 +176,9 @@ function Movies({ loggedIn }) {
                         console.log('Шаг15 Saved beatMovie', editedMovies);
 
                         localStorage.setItem('local-movies', JSON.stringify(editedMovies));
+
+                        console.log('Шаг16 Saved local-movies', editedMovies);
+
                         return editedMovies;
                     })
 

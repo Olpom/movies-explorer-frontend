@@ -27,21 +27,65 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const token = Token.getToken();
+  //   if (location.pathname === '/' && token) {
+  //     Token.removeToken();
+  //     mainApi.updateToken();
+  //     setLoggedIn(false);
+  //     setCurrentUser(null);
+  //   } else if (token) {
+  //     mainApi.updateToken();
+  //     handleUserInfo();
+  //   }
+  // }, [location]);
+
   useEffect(() => {
     const token = Token.getToken();
-    if (location.pathname === '/' && token) {
-      Token.removeToken();
+    if (token) {
       mainApi.updateToken();
-      setLoggedIn(false);
-      setCurrentUser(null);
-    } else if (token) {
-      mainApi.updateToken();
-      handleUserInfo();
+      handleUserInfo()
+        .then(() => {
+          // После успешной аутентификации проверяем lastVisited
+          const lastVisited = localStorage.getItem('lastVisited');
+          if (lastVisited) {
+            navigate(lastVisited);
+          }
+          setIsLoading(false);
+        });
+    } else if (localStorage.getItem('loggedIn')) {
+      // Если нет токена, но пользователь в прошлом был авторизован, восстанавливаем его статус
+      setLoggedIn(true);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
     }
-  }, [location]);
+  }, []);
+
+  useEffect(() => {
+    // Записываем текущую страницу в localStorage при каждом изменении маршрута
+    if (loggedIn) {
+      localStorage.setItem('lastVisited', location.pathname);
+      // Также сохраняем состояние авторизации пользователя
+      localStorage.setItem('loggedIn', 'true');
+    }
+  }, [location, loggedIn]);
+
+  // function handleUserInfo() {
+  //   mainApi.getUserInfo()
+  //     .then((user) => {
+  //       setCurrentUser(user);
+  //       setLoggedIn(true);
+  //     })
+  //     .catch((err) => {
+  //       console.log('Ошибка при получении данных пользователя: ', err);
+  //     });
+  // }
 
   function handleUserInfo() {
-    mainApi.getUserInfo()
+    return mainApi.getUserInfo()
       .then((user) => {
         setCurrentUser(user);
         setLoggedIn(true);
@@ -120,62 +164,66 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='app'>
-        <Routes>
+        {!isLoading && (
+          <>
+            <Routes>
 
-          <Route
-            path='/signup'
-            element={
-              <ProtectedRoute loggedIn={!loggedIn}>
-                <Register
-                  onRegister={handleRegister}
-                />
-              </ProtectedRoute>} />
+              <Route
+                path='/signup'
+                element={
+                  <ProtectedRoute loggedIn={!loggedIn}>
+                    <Register
+                      onRegister={handleRegister}
+                    />
+                  </ProtectedRoute>} />
 
-          <Route
-            path='/signin'
-            element={
-              <ProtectedRoute loggedIn={!loggedIn}>
-                <Login
-                  onLogin={handleLogin} />
-              </ProtectedRoute>} />
+              <Route
+                path='/signin'
+                element={
+                  <ProtectedRoute loggedIn={!loggedIn}>
+                    <Login
+                      onLogin={handleLogin} />
+                  </ProtectedRoute>} />
 
-          <Route
-            path='/'
-            element={
-              <Main loggedIn={loggedIn} />} />
+              <Route
+                path='/'
+                element={
+                  <Main loggedIn={loggedIn} />} />
 
-          <Route
-            path='/movies'
-            element={
-              <ProtectedRoute loggedIn={loggedIn}>
-                <Movies
-                  loggedIn={loggedIn} />
-              </ProtectedRoute>} />
+              <Route
+                path='/movies'
+                element={
+                  <ProtectedRoute loggedIn={loggedIn}>
+                    <Movies
+                      loggedIn={loggedIn} />
+                  </ProtectedRoute>} />
 
-          <Route
-            path='/saved-movies'
-            element={
-              <ProtectedRoute loggedIn={loggedIn}>
-                <SavedMovies loggedIn={loggedIn} />
-              </ProtectedRoute>} />
+              <Route
+                path='/saved-movies'
+                element={
+                  <ProtectedRoute loggedIn={loggedIn}>
+                    <SavedMovies loggedIn={loggedIn} />
+                  </ProtectedRoute>} />
 
-          <Route
-            path='/profile'
-            element={
-              <ProtectedRoute loggedIn={loggedIn}>
-                <Profile
-                  loggedIn={loggedIn}
-                  onLogOut={handleLogOut}
-                  openPopup={openPopup}
-                />
-              </ProtectedRoute>} />
+              <Route
+                path='/profile'
+                element={
+                  <ProtectedRoute loggedIn={loggedIn}>
+                    <Profile
+                      loggedIn={loggedIn}
+                      onLogOut={handleLogOut}
+                      openPopup={openPopup}
+                    />
+                  </ProtectedRoute>} />
 
-          <Route
-            path='/*'
-            element={<Page404 />} />
+              <Route
+                path='/*'
+                element={<Page404 />} />
 
-        </Routes>
-        <InfoPopup text={popupText} isOpen={isOpenPopup} onClose={closePopup} />
+            </Routes>
+            <InfoPopup text={popupText} isOpen={isOpenPopup} onClose={closePopup} />
+          </>
+        )}
       </div>
     </CurrentUserContext.Provider>
   )
