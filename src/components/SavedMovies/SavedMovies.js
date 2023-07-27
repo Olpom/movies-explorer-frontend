@@ -50,6 +50,7 @@ function SavedMovies({ loggedIn }) {
     const handleSavedMovie = (movie) => {
         mainApi.deleteMovies(movie._id)
             .then(() => {
+                console.log("Удаление фильма начато");
                 setFilteredCards((savedMovies) => {
                     const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
                     const editedLocalMovies = localMovies.map((localMovie) => {
@@ -59,15 +60,22 @@ function SavedMovies({ loggedIn }) {
                         return localMovie;
                     })
 
+                    console.log("Local Movies после удаления:", editedLocalMovies);
+
                     localStorage.setItem('local-movies', JSON.stringify(editedLocalMovies));
 
                     const filteredSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movie._id);
                     localStorage.setItem('saved-movies', JSON.stringify(filteredSavedMovies));
+
+                    console.log("Saved Movies после удаления:", filteredSavedMovies);
+
+                    setMovies(filteredSavedMovies);
+                    //filterMovies(filteredSavedMovies);
+
                     return filteredSavedMovies;
                 })
             })
     }
-
 
     return (
         <section className="savedmovies">
