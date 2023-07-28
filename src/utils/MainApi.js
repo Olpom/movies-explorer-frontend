@@ -7,9 +7,9 @@ class MainApi {
   // Обработчик ошибок
   _handleResponse(res) {
     console.log("Ответ сервера: ", res);
-    return res.ok 
-    ? res.json() 
-    : res.json().then(err => Promise.reject(`${err.message ||res.status}`));
+    return res.ok
+      ? res.json()
+      : res.json().then(err => Promise.reject(`${err.message || res.status}`));
   }
 
   // Функция регистрации пользователя

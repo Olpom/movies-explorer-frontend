@@ -14,8 +14,8 @@ function SavedMovies({ loggedIn }) {
     const [movies, setMovies] = useState([]);
     const [filteredCards, setFilteredCards] = useState([]);
 
+    //Переменные для хранения состояния фильтра
     const [isShortMovieFilterOn, setIsShortMovieFilterOn] = useState(false);
-
 
     useEffect(() => {
         const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
@@ -77,7 +77,6 @@ function SavedMovies({ loggedIn }) {
                 } else {
                     setFilteredCards(filteredSavedMovies);
                 }
-
             })
     }
 

@@ -73,12 +73,4 @@ function Navigation({ loggedIn }) {
     )
 };
 
-//function Navigation({ loggedIn }) {
-//    return (
-//        <nav className={`navigation ${loggedIn ? '' : 'navigation_loggedout'}`}>
-//            {loggedIn ? <LoggedIn /> : <LoggedOut />}
-//        </nav>
-//    )
-//};
-
 export default Navigation;

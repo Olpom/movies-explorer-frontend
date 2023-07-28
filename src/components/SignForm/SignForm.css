@@ -212,12 +212,13 @@
     .form__submit_register .form__submit-button {
         margin-top: 219px;
     }
-    
+
     .form__submit_login .form__submit-button {
         margin-top: 287px;
     }
 
-    .form__subtitle, .form__link {
+    .form__subtitle,
+    .form__link {
         font-size: 12px;
     }
 }

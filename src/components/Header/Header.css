@@ -29,7 +29,7 @@
     filter: brightness(110%);
 }
 
-@media screen and (max-width: 768px) {    
+@media screen and (max-width: 768px) {
     .header__logo {
         padding-left: 30px;
     }

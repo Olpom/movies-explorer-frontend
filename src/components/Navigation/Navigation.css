@@ -151,11 +151,11 @@
 
 .navigation__main-loggedin .navigation__profile-decoration {
     background: #fff;
-} 
+}
 
 .navigation__main-loggedin .navigation__title {
     color: #fff;
-} 
+}
 
 @media screen and (max-width: 768px) {
     .navigation {

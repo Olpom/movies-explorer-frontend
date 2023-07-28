@@ -8,7 +8,7 @@ function FilterCheckbox({ onChange, checked }) {
         onChange={onChange}
         name='isShortMovie'
         checked={checked}
-        id='switch'/>
+        id='switch' />
       <span className="switch__button"></span>
     </label>
   )

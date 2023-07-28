@@ -9,7 +9,7 @@ function Login({ onLogin }) {
             buttonText="Войти"
             spanText="Ещё не зарегистрированы?"
             linkText="Регистрация"
-            linkPath="/signup" 
+            linkPath="/signup"
             onSubmit={onLogin}
         />
     );

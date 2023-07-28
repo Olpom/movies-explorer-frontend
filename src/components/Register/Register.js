@@ -1,8 +1,7 @@
 import React from 'react';
-import './Register.css';
 import SignForm from '../SignForm/SignForm';
 
-function Register({ onRegister}) {
+function Register({ onRegister }) {
     return (
         <SignForm
             isRegister={true}
@@ -10,7 +9,7 @@ function Register({ onRegister}) {
             buttonText="Зарегистрироваться"
             spanText="Уже зарегистрированы?"
             linkText="Войти"
-            linkPath="/signin" 
+            linkPath="/signin"
             onSubmit={onRegister}
         />
     );

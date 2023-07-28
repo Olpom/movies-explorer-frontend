@@ -29,19 +29,6 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const token = Token.getToken();
-  //   if (location.pathname === '/' && token) {
-  //     Token.removeToken();
-  //     mainApi.updateToken();
-  //     setLoggedIn(false);
-  //     setCurrentUser(null);
-  //   } else if (token) {
-  //     mainApi.updateToken();
-  //     handleUserInfo();
-  //   }
-  // }, [location]);
-
   useEffect(() => {
     const token = Token.getToken();
     if (token) {
@@ -72,17 +59,6 @@ function App() {
       localStorage.setItem('loggedIn', 'true');
     }
   }, [location, loggedIn]);
-
-  // function handleUserInfo() {
-  //   mainApi.getUserInfo()
-  //     .then((user) => {
-  //       setCurrentUser(user);
-  //       setLoggedIn(true);
-  //     })
-  //     .catch((err) => {
-  //       console.log('Ошибка при получении данных пользователя: ', err);
-  //     });
-  // }
 
   function handleUserInfo() {
     return mainApi.getUserInfo()
