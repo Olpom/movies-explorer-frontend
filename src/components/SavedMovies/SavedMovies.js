@@ -14,6 +14,9 @@ function SavedMovies({ loggedIn }) {
     const [movies, setMovies] = useState([]);
     const [filteredCards, setFilteredCards] = useState([]);
 
+    const [isShortMovieFilterOn, setIsShortMovieFilterOn] = useState(false);
+
+
     useEffect(() => {
         const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
         setFilteredCards(localMovies);
@@ -21,6 +24,7 @@ function SavedMovies({ loggedIn }) {
 
     // Фильтр фильмов
     const filterMovies = (search) => {
+        setIsShortMovieFilterOn(search.isShortMovie);
         setFilteredCards(movies.filter((movie) => {
             const isMovieTitle = movie.nameRU.toLowerCase().includes(search.name.toLowerCase());
             const isShortMovie = search.isShortMovie ? movie.duration <= 40 : true;
@@ -51,29 +55,29 @@ function SavedMovies({ loggedIn }) {
         mainApi.deleteMovies(movie._id)
             .then(() => {
                 console.log("Удаление фильма начато");
-                setFilteredCards((savedMovies) => {
-                    const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
-                    const editedLocalMovies = localMovies.map((localMovie) => {
-                        if (localMovie.id === movie.movieId) {
-                            localMovie.saved = false;
-                        }
-                        return localMovie;
-                    })
 
-                    console.log("Local Movies после удаления:", editedLocalMovies);
-
-                    localStorage.setItem('local-movies', JSON.stringify(editedLocalMovies));
-
-                    const filteredSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movie._id);
-                    localStorage.setItem('saved-movies', JSON.stringify(filteredSavedMovies));
-
-                    console.log("Saved Movies после удаления:", filteredSavedMovies);
-
-                    setMovies(filteredSavedMovies);
-                    //filterMovies(filteredSavedMovies);
-
-                    return filteredSavedMovies;
+                // Обновление localStorage для 'local-movies'
+                const localMovies = JSON.parse(localStorage.getItem('local-movies') || '[]');
+                const editedLocalMovies = localMovies.map((localMovie) => {
+                    if (localMovie.id === movie.movieId) {
+                        localMovie.saved = false;
+                    }
+                    return localMovie;
                 })
+                localStorage.setItem('local-movies', JSON.stringify(editedLocalMovies));
+
+                // Обновление localStorage и состояния для 'saved-movies' и 'movies'
+                const savedMovies = JSON.parse(localStorage.getItem('saved-movies') || '[]');
+                const filteredSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movie._id);
+                localStorage.setItem('saved-movies', JSON.stringify(filteredSavedMovies));
+
+                setMovies(filteredSavedMovies);
+                if (isShortMovieFilterOn) {
+                    setFilteredCards(filteredSavedMovies.filter(movie => movie.duration <= 40));
+                } else {
+                    setFilteredCards(filteredSavedMovies);
+                }
+
             })
     }
 

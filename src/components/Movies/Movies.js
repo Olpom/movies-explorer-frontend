@@ -92,9 +92,6 @@ function Movies({ loggedIn }) {
 
                         filter(mixedFilms);
 
-                        // Сохраняем Битфильмы в локальное хранилище
-                        //localStorage.setItem('local-movies', JSON.stringify(mixedFilms));
-
                         // Сохраняем отредактированный список фильмов в локальное хранилище
                         localStorage.setItem('local-movies', JSON.stringify(mixedFilms));
                         // Сохраняем список сохраненных фильмов в локальное хранилище
@@ -119,7 +116,6 @@ function Movies({ loggedIn }) {
     const handleSavedMovie = (movie) => {
         if (movie.saved) {
             console.log('Шаг8 movie.saved', movie.saved);
-            //mainApi.updateToken();
             mainApi.deleteMovies(movie._id)
                 .then(() => {
                     console.log('Шаг9 movie._id', movie._id);
@@ -131,7 +127,6 @@ function Movies({ loggedIn }) {
                             return beatMovie;
                         });
                         console.log('Шаг10 editedMovies', editedMovies);
-                        //localStorage.setItem('local-movies', JSON.stringify(editedMovies));
 
                         // Здесь мы сохраняем отредактированный список фильмов в локальное хранилище
                         localStorage.setItem('local-movies', JSON.stringify(editedMovies));
@@ -161,7 +156,6 @@ function Movies({ loggedIn }) {
                 nameEN: movie.nameEN,
             }
             console.log('Шаг12 recentMovie', recentMovie);
-            //mainApi.updateToken();
             mainApi.addMovies(recentMovie)
                 .then((serverMovie) => {
 
@@ -182,8 +176,6 @@ function Movies({ loggedIn }) {
                             return beatMovie;
                         })
                         console.log('Шаг15 Saved beatMovie', editedMovies);
-
-                        //localStorage.setItem('local-movies', JSON.stringify(editedMovies));
 
                         // Здесь мы сохраняем отредактированный список фильмов в локальное хранилище
                         localStorage.setItem('local-movies', JSON.stringify(editedMovies));
