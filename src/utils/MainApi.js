@@ -111,7 +111,7 @@ class MainApi {
 }
 
 const isProduction = process.env.NODE_ENV === 'production';
-const baseUrl = isProduction ? 'https://olpoma-diploma.nomoreparties.sbs' : 'http://localhost:3001';
+const baseUrl = isProduction ? 'https://olpoma-diploma.nomoreparties.sbs/api' : 'http://localhost:3001';
 
 const mainApi = new MainApi({
   baseUrl,
