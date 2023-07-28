@@ -110,8 +110,11 @@ class MainApi {
   }
 }
 
+const isProduction = process.env.NODE_ENV === 'production';
+const baseUrl = isProduction ? 'https://olpoma-diploma.nomoreparties.sbs/' : 'http://localhost:3001';
+
 const mainApi = new MainApi({
-  baseUrl: 'http://localhost:3001',
+  baseUrl,
   headers: {
     'Content-Type': 'application/json'
   }
