@@ -194,7 +194,11 @@ function App() {
 
               <Route
                 path='/*'
-                element={<Page404 />} />
+                element={
+                  <ProtectedRoute loggedIn={!loggedIn}>
+                    <Page404 />
+                  </ProtectedRoute>
+                } />
 
             </Routes>
             <InfoPopup text={popupText} isOpen={isOpenPopup} onClose={closePopup} />
