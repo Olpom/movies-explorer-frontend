@@ -133,7 +133,7 @@ function App() {
     setLoggedIn(false);
     setCurrentUser(null);
     mainApi.updateToken();
-    navigate('/signin');
+    navigate('/');
     console.log('Выход из аккаунта');
   }
 

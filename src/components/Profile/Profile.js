@@ -16,6 +16,11 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
         email: '',
     });
 
+    const [sentUserData, setSentUserData] = useState({ 
+        name: '', 
+        email: '' 
+    }); 
+
     // Вывод ошибок с применением валидации
     const [userDataError, setUserDataError] = useState('');
     const disabled = !(userData.name && userData.email) || userDataError;
@@ -29,6 +34,10 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
         // Проверяем, есть ли данные пользователя, прежде чем обновлять состояние
         if (currentUser && currentUser.data) {
             setUserData({
+                name: currentUser.data.name,
+                email: currentUser.data.email,
+            });
+            setSentUserData({
                 name: currentUser.data.name,
                 email: currentUser.data.email,
             });
@@ -56,15 +65,31 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
+
+        // Новый объект с данными пользователя
+        const updatedUserData = {
+            name: userData.name,
+            email: userData.email,
+        };
+
         // Проверяем, были ли внесены изменения
-        if (userData.name === currentUser.data.name && userData.email === currentUser.data.email) {
+        if (userData.name === sentUserData.name && userData.email === sentUserData.email) {
             setEditMode(false);
             return;
         }
-        mainApi.updateUserInfo(userData)
+
+        // Если данные изменились, обновляем информацию пользователя
+        mainApi.updateUserInfo(updatedUserData)
             .then((response) => {
                 const updatedUser = response.data;
-                setUserData(updatedUser);
+                setUserData({
+                    name: updatedUser.name,
+                    email: updatedUser.email,
+                });
+                setSentUserData({
+                    name: updatedUser.name,
+                    email: updatedUser.email,
+                });
                 setEditMode(false);
                 console.log('updated', updatedUser);
                 openPopup('Данные успешно изменены!');
