@@ -6,20 +6,18 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
+import { DISPLAY_SETTINGS, SHORT_MOVIE_DURATION } from '../../utils/constants';
 
 // Фильмы, отображаемые на экране
 const moviesDisplay = () => {
-    const display = {
-        start: 12,
-        load: 3
-    }
+    const display = { ...DISPLAY_SETTINGS.default }
     if (window.innerWidth < 990) {
-        display.start = 8;
-        display.load = 2;
+        display.start = DISPLAY_SETTINGS.tablet.start;
+        display.load = DISPLAY_SETTINGS.tablet.load;
     }
     if (window.innerWidth < 767) {
-        display.start = 5;
-        display.load = 1;
+        display.start = DISPLAY_SETTINGS.mobile.start;
+        display.load = DISPLAY_SETTINGS.mobile.load;
     }
     return display
 }
@@ -56,7 +54,7 @@ function Movies({ loggedIn }) {
         const filter = (movies) => {
             setFilteredMovies(movies.filter((movie) => {
                 const isMovieTitle = movie.nameRU.toLowerCase().includes(search.name.toLowerCase());
-                const isShortMovie = search.isShortMovie ? movie.duration <= 40 : true;
+                const isShortMovie = search.isShortMovie ? movie.duration <= SHORT_MOVIE_DURATION : true;
                 return isMovieTitle && isShortMovie;
             }))
 

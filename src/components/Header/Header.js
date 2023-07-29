@@ -8,7 +8,7 @@ function Header({ loggedIn }) {
 
     const location = useLocation();
 
-    const headerClass = (location.pathname === '/') ? 'header header_main' : 'header header_movie'
+    const headerClass = (location.pathname === '/') ? 'header header_main' : 'header header_movie';
 
     return (
         <header className={headerClass}>
