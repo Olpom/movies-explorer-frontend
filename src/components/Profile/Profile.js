@@ -7,26 +7,27 @@ import mainApi from '../../utils/MainApi';
 
 function Profile({ openPopup, onLogOut, loggedIn }) {
 
-    const currentUser = useContext(CurrentUserContext);
+    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
     // Переменные состояния данных пользователя
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState({
-        name: currentUser.data.name,
-        email: currentUser.data.email,
+        name: '',
+        email: '',
     });
 
     // Вывод ошибок с применением валидации
     const [userDataError, setUserDataError] = useState('');
-    const disabled = !{ userData } || userDataError;
+    const disabled = !(userData.name && userData.email) || userDataError;
 
     // Инициализируем состояние загрузки
     const [isLoading, setIsLoading] = useState(true);
 
-    console.log(currentUser); // Выводим в консоль объект currentUser
+    console.log('start', currentUser);
 
     useEffect(() => {
-        if (currentUser.data) {
+        // Проверяем, есть ли данные пользователя, прежде чем обновлять состояние
+        if (currentUser && currentUser.data) {
             setUserData({
                 name: currentUser.data.name,
                 email: currentUser.data.email,
@@ -55,18 +56,27 @@ function Profile({ openPopup, onLogOut, loggedIn }) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
+        // Проверяем, были ли внесены изменения
+        if (userData.name === currentUser.data.name && userData.email === currentUser.data.email) {
+            setEditMode(false);
+            return;
+        }
         mainApi.updateUserInfo(userData)
             .then((response) => {
                 const updatedUser = response.data;
                 setUserData(updatedUser);
                 setEditMode(false);
+                console.log('updated', updatedUser);
                 openPopup('Данные успешно изменены!');
+                setCurrentUser(updatedUser);
             })
             .catch((err) => {
                 console.log('Ошибка при обновлении данных пользователя: ', err);
-                setUserDataError('Ошибка при обновлении данных. Попробуйте еще раз.');
+                setUserDataError(err);
             });
     }
+
+    console.log('end', currentUser);
 
     return (
         <div>
