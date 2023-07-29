@@ -11,6 +11,9 @@ function SignForm(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // Состояние, чтобы отследить, идет ли запрос
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     // переменные для вывод ошибок валидации
     const [nameError, setNameError] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -40,7 +43,11 @@ function SignForm(props) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        onSubmit({ name, email, password });
+        setIsSubmitting(true);
+        onSubmit({ name, email, password })
+            .finally(() => {
+                setIsSubmitting(false);
+            });
     }
 
     return (
@@ -68,7 +75,8 @@ function SignForm(props) {
                                     required=""
                                     placeholder="Ваше Имя"
                                     value={name}
-                                    onChange={handleName} />
+                                    onChange={handleName}
+                                    disabled={isSubmitting} />
                             </label>
                             <span className={`input__error name-error ${nameError && 'input__error_active'}`}>{nameError}</span>
                         </Fragment>
@@ -83,7 +91,8 @@ function SignForm(props) {
                             required=""
                             placeholder="email@example.com"
                             value={email}
-                            onChange={handleEmail} />
+                            onChange={handleEmail}
+                            disabled={isSubmitting} />
                     </label>
                     <span className={`input__error email-error ${emailError && 'input__error_active'}`}>{emailError}</span>
                     <label className="form__label">
@@ -98,7 +107,8 @@ function SignForm(props) {
                             minLength={8}
                             maxLength={20}
                             value={password}
-                            onChange={handlePassword} />
+                            onChange={handlePassword}
+                            disabled={isSubmitting} />
                     </label>
                     <span className={`input__error password-error ${passwordError && 'input__error_active'}`}>{passwordError}</span>
                 </fieldset>
@@ -107,7 +117,7 @@ function SignForm(props) {
                     <button
                         className={`form__submit-button ${disabled ? 'form__submit-button_disabled' : ''}`}
                         type="submit"
-                        disabled={disabled}>
+                        disabled={disabled || isSubmitting}>
                         {buttonText}
                     </button>
                     <span className="form__subtitle">{spanText}<Link to={linkPath} className="form__link">{linkText}</Link></span>

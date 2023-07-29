@@ -72,7 +72,7 @@ function App() {
   }
 
   function handleRegister(userData) {
-    mainApi.register({
+    return mainApi.register({
       name: userData.name,
       email: userData.email,
       password: userData.password
@@ -94,7 +94,7 @@ function App() {
   }
 
   function handleLogin(userData) {
-    mainApi.login({
+    return mainApi.login({
       email: userData.email,
       password: userData.password
     })
