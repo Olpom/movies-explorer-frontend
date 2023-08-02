@@ -11,10 +11,13 @@ export const validateURL = (value) => {
 
 // функции валидации для текстовых полей
 export const validateInput = (value) => {
+    const pattern = /^[A-Za-zА-Яа-я -]+$/;
     if (!value.trim()) {
         return 'Поле не может быть пустым';
     } else if (value.length < 2) {
         return 'Поле должно содержать не менее 2 символов';
+    } else if (!pattern.test(value)) {
+        return 'Поле может содержать только латиницу, кириллицу, пробел или дефис';
     } else {
         return '';
     }
@@ -25,7 +28,7 @@ export const validateEmail = (value) => {
     if (!value) {
         return 'Email не может быть пустым';
     }
-    const pattern = /^[\w-.+]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
     if (!pattern.test(value)) {
         return 'Введите корректный email: name@example.ru';
     }

@@ -34,10 +34,10 @@ const LoggedIn = () => {
                     <ul className='navigation__sidebar-menu'>
                         <li className='navigation__sidebar-title'>
                             <Link to='/' className='navigation__sidebar-link'>Главная</Link>
-                            </li>
+                        </li>
                         <li className={`navigation__sidebar-title ${location.pathname === '/movies' ? 'navigation__sidebar-title_active' : ''}`}>
                             <Link to='/movies' className='navigation__sidebar-link'>Фильмы</Link>
-                            </li>
+                        </li>
                         <li className={`navigation__sidebar-title ${location.pathname === '/saved-movies' ? 'navigation__sidebar-title_active' : ''}`}><Link to='/saved-movies' className='navigation__sidebar-link'>Сохранённые фильмы</Link></li>
                     </ul>
                     <div className='navigation__profile'>
@@ -59,8 +59,15 @@ const LoggedOut = () => (
 );
 
 function Navigation({ loggedIn }) {
+    const location = useLocation();
+    let navClasses = 'navigation';
+    if (loggedIn) {
+        navClasses += location.pathname === '/' ? ' navigation__main-loggedin' : '';
+    } else {
+        navClasses += ' navigation_loggedout';
+    }
     return (
-        <nav className={`navigation ${loggedIn ? '' : 'navigation_loggedout'}`}>
+        <nav className={navClasses}>
             {loggedIn ? <LoggedIn /> : <LoggedOut />}
         </nav>
     )

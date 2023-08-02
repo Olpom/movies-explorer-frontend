@@ -1,8 +1,7 @@
 import React from 'react';
-import './Login.css';
 import SignForm from '../SignForm/SignForm';
 
-function Login() {
+function Login({ onLogin }) {
     return (
         <SignForm
             isRegister={false}
@@ -11,6 +10,7 @@ function Login() {
             spanText="Ещё не зарегистрированы?"
             linkText="Регистрация"
             linkPath="/signup"
+            onSubmit={onLogin}
         />
     );
 }

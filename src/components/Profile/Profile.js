@@ -1,20 +1,49 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import { validateInput, validateEmail } from '../../utils/Validation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
-function Profile({ loggedIn, onSubmit }) {
-    const navigate = useNavigate();
+function Profile({ openPopup, onLogOut, loggedIn }) {
+
+    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+
+    // Переменные состояния данных пользователя
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState({
-        name: 'Виталий',
-        email: 'pochta@yandex.ru',
+        name: '',
+        email: '',
     });
 
-    // Временное решение для вывода ошибок с применением валидации
+    const [sentUserData, setSentUserData] = useState({ 
+        name: '', 
+        email: '' 
+    }); 
+
+    // Вывод ошибок с применением валидации
     const [userDataError, setUserDataError] = useState('');
-    const disabled = !{ userData } || userDataError;
+    const disabled = !(userData.name && userData.email) || userDataError;
+
+    // Инициализируем состояние загрузки
+    const [isLoading, setIsLoading] = useState(true);
+
+    console.log('start', currentUser);
+
+    useEffect(() => {
+        // Проверяем, есть ли данные пользователя, прежде чем обновлять состояние
+        if (currentUser && currentUser.data) {
+            setUserData({
+                name: currentUser.data.name,
+                email: currentUser.data.email,
+            });
+            setSentUserData({
+                name: currentUser.data.name,
+                email: currentUser.data.email,
+            });
+            setIsLoading(false);
+        }
+    }, [currentUser]);
 
     function toggleEditMode() {
         setEditMode(!editMode);
@@ -36,23 +65,43 @@ function Profile({ loggedIn, onSubmit }) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        // Заглушка для обновления данных пользователя
-        console.log('Пользователь обновлен:', {
+
+        // Новый объект с данными пользователя
+        const updatedUserData = {
             name: userData.name,
-            email: userData.email
-        });
-        setEditMode(false);
-        if (typeof onSubmit === 'function') {
-            onSubmit(userData);
+            email: userData.email,
+        };
+
+        // Проверяем, были ли внесены изменения
+        if (userData.name === sentUserData.name && userData.email === sentUserData.email) {
+            setEditMode(false);
+            return;
         }
+
+        // Если данные изменились, обновляем информацию пользователя
+        mainApi.updateUserInfo(updatedUserData)
+            .then((response) => {
+                const updatedUser = response.data;
+                setUserData({
+                    name: updatedUser.name,
+                    email: updatedUser.email,
+                });
+                setSentUserData({
+                    name: updatedUser.name,
+                    email: updatedUser.email,
+                });
+                setEditMode(false);
+                console.log('updated', updatedUser);
+                openPopup('Данные успешно изменены!');
+                setCurrentUser(updatedUser);
+            })
+            .catch((err) => {
+                console.log('Ошибка при обновлении данных пользователя: ', err);
+                setUserDataError(err);
+            });
     }
 
-    function handleLogout() {
-        // Заглушка для выхода из системы
-        console.log('Пользователь вышел из системы');
-        navigate('/');
-    }
-
+    console.log('end', currentUser);
 
     return (
         <div>
@@ -60,7 +109,7 @@ function Profile({ loggedIn, onSubmit }) {
             <form className="profile"
                 onSubmit={handleSubmit}
             >
-                <h2 className="profile__greeting">Привет, {userData.name}!</h2>
+                <h2 className="profile__greeting">{isLoading ? 'Загрузка...' : `Привет, ${userData.name}!`}</h2>
                 <fieldset className="profile__user"
                     disabled={!editMode}
                 >
@@ -105,7 +154,7 @@ function Profile({ loggedIn, onSubmit }) {
                                 className="profile__button profile__edit-button">Редактировать</button>
                             <button
                                 type="button"
-                                onClick={handleLogout}
+                                onClick={onLogOut}
                                 className="profile__button profile__exit-button">Выйти из аккаунта</button>
                         </>
                     )}

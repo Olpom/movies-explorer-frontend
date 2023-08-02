@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../../images/header-logo.svg';
 import './Header.css';
 import Navigation from '../Navigation/Navigation';
 
 function Header({ loggedIn }) {
 
-    const headerClass = (
-        `header ${loggedIn ? 'header_movie' : 'header_main'}`
-    )
+    const location = useLocation();
+
+    const headerClass = (location.pathname === '/') ? 'header header_main' : 'header header_movie';
 
     return (
         <header className={headerClass}>

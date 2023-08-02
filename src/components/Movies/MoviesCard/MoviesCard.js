@@ -1,28 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import './MoviesCard.css';
-import movie from '../../../images/movie-image.png';
+import { useLocation } from "react-router-dom";
+import { MOVIE_HOUR_IN_MINUTES } from '../../../utils/constants';
 
-function MoviesCard({ isSavedMoviesPage }) {
-    const [isSaved, setIsSaved] = useState(false);
+function MoviesCard({ movie, handleSavedMovie }) {
 
-    const handleSaveClick = () => {
-        setIsSaved(!isSaved);
-    }
+    const location = useLocation();
+    const buttonClass = movie.saved ? " moviescard__button_saved moviescard__button" : "moviescard__button";
+
+    // Вычисление длительности фильма
+    const hourDuration = movie.duration >= MOVIE_HOUR_IN_MINUTES ? `${Math.floor(movie.duration / MOVIE_HOUR_IN_MINUTES)} ч ` : '';
+    const minuteDuration = movie.duration === MOVIE_HOUR_IN_MINUTES ? '' : `${movie.duration % MOVIE_HOUR_IN_MINUTES} м`;
+    const movieDuration = hourDuration + minuteDuration;
+
+    const savedMovie = () => handleSavedMovie(movie);
 
     return (
         <li className="moviescard__card">
             <div className="moviescard__description">
                 <div className="moviescard__text">
-                    <h2 className="moviescard__title">33 слова о дизайне</h2>
-                    <h3 className="moviescard__length">2ч42м</h3>
+                    <h2 className="moviescard__title">{movie.nameRU}</h2>
+                    <h3 className="moviescard__length">{movieDuration}</h3>
                 </div>
-                <button
-                    className={`moviescard__button ${isSavedMoviesPage ? 'moviescard__button_delete' : (isSaved ? 'moviescard__button_saved' : '')}`}
-                    onClick={handleSaveClick}
-                >
-                </button>
+                {(location.pathname === "/movies") &&
+                    <button
+                        className={buttonClass}
+                        onClick={savedMovie}></button>}
+                {(location.pathname === "/saved-movies") &&
+                    <button
+                        className="moviescard__button_delete"
+                        onClick={savedMovie}></button>}
             </div>
-            <img className="moviescard__image" alt="Фильм" src={movie} />
+            <a href={movie.trailerLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="moviescard__trailerlink">
+                <img className="moviescard__image"
+                    alt={movie.nameRU}
+                    src={movie.thumbnail} />
+            </a>
         </li>
     )
 }
